@@ -1,24 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import { createContext, useContext, useEffect, useReducer } from 'react';
+import { BrowserRouter, useNavigate  , Routes, Route } from 'react-router-dom';
+import { initialState, reducer } from './reducers/userReducer';
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+
+export const UserContext = createContext();
+
+const Rounting = () => {
+  const history = useNavigate();
+  const {state, dispatch} = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));;
+
+  const RedirectUser = () => {
+    
+  }
+
+  useEffect(() => {
+    if (user) {
+      dispatch ({
+        type: 'USER',
+        payload: user
+      })
+    } else {
+      history("/");
+    }
+  },[user]);
+
+  return(
+    <Routes>
+    <Route path="/" element={user ? <Home /> : <Login></Login>} ></Route>
+    {/* <Route path="/" element={<Home />} ></Route> */}
+    {/* <Route path="/login" element={<Login />} ></Route> */}
+  </Routes>
+  )
+}
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{state, dispatch}}>
+      <BrowserRouter>
+      <Rounting />
+      </BrowserRouter>
+    </UserContext.Provider>
   );
 }
 
