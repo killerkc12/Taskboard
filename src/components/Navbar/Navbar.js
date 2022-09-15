@@ -6,6 +6,12 @@ import { UserContext } from '../../App';
 
 const Navbar = () => {
     const {state,dispatch} = useContext(UserContext);
+
+    const Logout = () => {
+        localStorage.clear();
+        dispatch({type:"CLEAR"})
+    }
+    
   return (
     <div className='navbar__container'>
         {/* TODO: Menu symbol and Logout */}
@@ -26,7 +32,7 @@ const Navbar = () => {
 
         {/* TODO: Profile Photoz */}
         <div className='navbar__right'>
-            <img src={state?.photo} alt="" className="profile__pic" />
+            <img src={state?.photo} alt="" className="profile__pic" onClick={Logout} />
         </div>
     </div>
   )
