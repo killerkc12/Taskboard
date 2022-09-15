@@ -3,6 +3,8 @@ import React, { useContext } from 'react'
 import { useNavigate  } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { auth, provider } from '../../firebase/firebase';
+import GoogleButton from 'react-google-button'
+import './Login.css';
 
 const Login = () => {
     const history = useNavigate ();
@@ -25,9 +27,15 @@ const Login = () => {
                 history('/')
     }
   return (
-    <div>
-        <h1>Login</h1>
-        <button onClick={Login}>Login</button>
+    <div className='login__container'>
+        {/* TODO: login header */}
+        <div className='login__header'>
+            <h2>TaskBoard</h2>
+        </div>
+        {/* TODO: login with google button */}
+        <div className='login__button'>
+            <GoogleButton onClick={Login} />
+        </div>
     </div>
     
   )

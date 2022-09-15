@@ -1,0 +1,22 @@
+.login__container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.login__header {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.75rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    text-align: center;
+}
