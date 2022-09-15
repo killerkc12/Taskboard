@@ -9,12 +9,7 @@ const Home = () => {
   return (
     <div>
         <h1>Home</h1>
-        <button
-            onClick={()=>{localStorage.clear() 
-            dispatch({type:"CLEAR"})
-            history('/login')
-            }}
-        >Logout</button>
+        <p>Tomorrow start with preparation of Task database structure and UI</p>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { BrowserRouter, useNavigate  , Routes, Route } from 'react-router-dom';
 import { initialState, reducer } from './reducers/userReducer';
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
+import Navbar from './components/Navbar/Navbar';
 
 export const UserContext = createContext();
 
@@ -25,7 +26,7 @@ const Rounting = () => {
     } else {
       history("/");
     }
-  },[user]);
+  },[]);
 
   return(
     <Routes>
@@ -41,6 +42,7 @@ function App() {
   return (
     <UserContext.Provider value={{state, dispatch}}>
       <BrowserRouter>
+      { state?.uid && <Navbar /> }
       <Rounting />
       </BrowserRouter>
     </UserContext.Provider>
