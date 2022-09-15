@@ -25,7 +25,7 @@ const Rounting = () => {
     } else {
       history("/");
     }
-  },[user]);
+  },[]);
 
   return(
     <Routes>
