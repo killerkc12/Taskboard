@@ -1,0 +1,32 @@
+.task__input_container {
+    display: flex;
+    padding: 10px 15px;
+}
+
+.task__input_container:hover {
+    background-color: #3A3C45;
+}
+
+.task__inputbox__container {
+    margin-left: 10px;
+}
+
+.task__input {
+    background: transparent;
+    border: none;
+    outline: none;
+    /* border-bottom: 1px solid #fff; */
+    color: #fff;
+}
+
+.task__button {
+    font-size: 20px;
+    color: #2684FC;
+    cursor: pointer;
+}
+
+.task__button__circle {
+    font-size: 20px;
+    color: #2684FC;
+    cursor: pointer;
+}

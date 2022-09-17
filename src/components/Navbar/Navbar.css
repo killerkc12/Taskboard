@@ -91,7 +91,7 @@
     border-top-left-radius: 0;
 }
 
-input {
+.search__input {
     background: transparent;
     border: red 1px;
     font-variant-ligatures: none;

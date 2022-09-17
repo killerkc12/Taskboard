@@ -2,9 +2,10 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import React, { useContext } from 'react'
 import { useNavigate  } from 'react-router-dom';
 import { UserContext } from '../../App';
-import { auth, provider } from '../../firebase/firebase';
+import { auth, db, provider } from '../../firebase/firebase';
 import GoogleButton from 'react-google-button'
 import './Login.css';
+import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const Login = () => {
     const history = useNavigate ();
@@ -25,6 +26,65 @@ const Login = () => {
                 localStorage.setItem("user",JSON.stringify(user));
                 dispatch({type:"USER",payload: user})
                 history('/')
+        
+        const currentUser = await GetUser(user.uid);
+        if(currentUser === undefined){
+           const uid = await AddUser(user);
+           const board_id = await AddBoard(uid);
+           const tasklist_id = await AddTaskList(board_id);
+           await setDefaultValues(uid,board_id,tasklist_id);
+        }
+    }
+
+    const setDefaultValues = async (uid,board_id,tasklist_id) => {
+        const docRef = doc(db, "User", uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            await setDoc(doc(db, "User", uid), {
+                default_board: board_id,
+                default_tasklist: tasklist_id
+            }, { merge: true });
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }
+    
+    const AddUser = async (user) => {
+        const docRef = doc(db, "User", user.uid);
+        const data = {
+            name: user.name,
+            email: user.email,
+            photo: user.photo
+        }
+        await setDoc(docRef, data);
+        return user.uid;
+    }
+
+    const AddBoard = async (uid) => {
+        const docRef = collection(db, 'Board');
+        const data = {
+            board_name: 'Main board',
+            uid: uid
+        }
+        const docRes = await addDoc(docRef, data);
+        return docRes.id;
+    }
+
+    const AddTaskList = async (board_id) => {
+        const docRef = collection(db, 'TaskList');
+        const data = {
+            board_id: board_id,
+            tasklist_name: 'Main tasklist'
+        }
+        const docRes = await addDoc(docRef, data);
+        return docRes.id;
+    }
+
+    const GetUser = async (uid) => {
+        const docRef = doc(db, 'User', uid);
+        const docSnap = await getDoc(docRef);
+        return docSnap.data();
     }
   return (
     <div className='login__container'>

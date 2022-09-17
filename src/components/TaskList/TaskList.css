@@ -1,0 +1,19 @@
+.tasklist__container {
+    height: 500px;
+    width: 250px;
+    background-color: #292A2F;
+    /* padding: 10px; */
+    margin: 10px;
+    border-radius: 15px;
+    color: #fff;
+}
+
+.tasklist__header__name {
+    padding-left: 15px;
+    padding-top: 15px;
+    font-weight: 500;
+}
+
+.tasklist__tasks {
+    margin-top: 20px;
+}

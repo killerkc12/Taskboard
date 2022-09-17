@@ -26,7 +26,7 @@ const Navbar = () => {
                 <AiOutlineSearch className='search__logo' />
             </div>
             <div className="input__container">
-                <input type="text" placeholder='Search' />
+                <input type="text" placeholder='Search' className='search__input' />
             </div>
         </div>
 
