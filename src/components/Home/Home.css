@@ -1,0 +1,11 @@
+.home__container {
+    padding: 10px;
+    background-color: #1F2024;
+    color: #fff;
+    height: 88vh;
+    overflow-y: hidden;
+}
+
+.home__tasklist {
+    display: flex;
+}

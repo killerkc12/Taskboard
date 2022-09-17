@@ -1,0 +1,25 @@
+.task__container {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.task__container:hover {
+    background-color: #3A3C45;
+}
+
+.task__name {
+    margin-left: 10px;
+}
+
+.task__icon__circle {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.task__icon__done {
+    font-size: 20px;
+    color: #2684FC;
+    cursor: pointer;
+}
