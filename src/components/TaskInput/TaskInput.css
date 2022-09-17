@@ -8,7 +8,12 @@
 }
 
 .task__inputbox__container {
+    display: flex;
     margin-left: 10px;
+}
+
+.task__inputbox__container button {
+    cursor: pointer;
 }
 
 .task__input {

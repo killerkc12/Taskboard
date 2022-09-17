@@ -3,7 +3,7 @@ import './Task.css';
 import { BsCircle } from 'react-icons/bs';
 import { MdDone } from 'react-icons/md';
 
-const Task = () => {
+const Task = (props) => {
     const [isHover, setHover] = useState(false);
   return (
     <div className='task__container'>
@@ -18,7 +18,7 @@ const Task = () => {
         </div>
         {/* name */}
         <div className="task__name">
-            Task1
+            { props.task.task_name }
         </div>
     </div>
   )

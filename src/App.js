@@ -9,24 +9,10 @@ import Navbar from './components/Navbar/Navbar';
 export const UserContext = createContext();
 
 const Rounting = () => {
-  const history = useNavigate();
   const {state, dispatch} = useContext(UserContext);
   const user = JSON.parse(localStorage.getItem("user"));;
 
-  const RedirectUser = () => {
-    
-  }
-
-  useEffect(() => {
-    if (user) {
-      dispatch ({
-        type: 'USER',
-        payload: user
-      })
-    } else {
-      history("/");
-    }
-  },[]);
+  
 
   return(
     <Routes>
@@ -39,10 +25,19 @@ const Rounting = () => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));;
+    if (user && state === null) {
+      dispatch({type:"USER",payload: user})
+      // console.log('user', user);
+      // console.log('state: ', state);
+    }
+  },[state]);
+
   return (
     <UserContext.Provider value={{state, dispatch}}>
       <BrowserRouter>
-      { state?.uid && <Navbar /> }
       <Rounting />
       </BrowserRouter>
     </UserContext.Provider>

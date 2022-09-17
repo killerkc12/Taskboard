@@ -13,30 +13,28 @@ const Login = () => {
 
     const Login = async () => {
         const result = await signInWithPopup(auth, provider);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = {
-            uid: result.user.uid,
-            name: result.user.displayName,
-            email: result.user.email,
-            photo: result.user.photoURL
-        }
-        console.log(token);
-        console.log(user);
-                localStorage.setItem("user",JSON.stringify(user));
-                dispatch({type:"USER",payload: user})
-                history('/')
         
-        const currentUser = await GetUser(user.uid);
+        let currentUser = await GetUser(result.user.uid);
         if(currentUser === undefined){
-           const uid = await AddUser(user);
+           const uid = await AddUser(result.user);
            const board_id = await AddBoard(uid);
            const tasklist_id = await AddTaskList(board_id);
-           await setDefaultValues(uid,board_id,tasklist_id);
+           await SetDefaultValues(uid,board_id,tasklist_id);
+           currentUser = await GetUser(result.user.uid);
         }
+        const user = {
+            uid: result.user.uid,
+            name: currentUser.name,
+            email: currentUser.email,
+            photo: currentUser.photo,
+            default_board: currentUser.default_board,
+            default_tasklist: currentUser.default_tasklist
+        }
+        localStorage.setItem("user",JSON.stringify(user));
+        dispatch({type:"USER",payload: user})
     }
 
-    const setDefaultValues = async (uid,board_id,tasklist_id) => {
+    const SetDefaultValues = async (uid,board_id,tasklist_id) => {
         const docRef = doc(db, "User", uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -53,9 +51,9 @@ const Login = () => {
     const AddUser = async (user) => {
         const docRef = doc(db, "User", user.uid);
         const data = {
-            name: user.name,
+            name: user.displayName,
             email: user.email,
-            photo: user.photo
+            photo: user.photoURL
         }
         await setDoc(docRef, data);
         return user.uid;
