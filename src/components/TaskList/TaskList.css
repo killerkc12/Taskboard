@@ -1,8 +1,7 @@
 .tasklist__container {
-    height: 500px;
-    width: 250px;
+    height: 75vh;
+    width: 20vw;
     background-color: #292A2F;
-    /* padding: 10px; */
     margin: 10px;
     border-radius: 15px;
     color: #fff;
@@ -16,4 +15,8 @@
 
 .tasklist__tasks {
     margin-top: 20px;
+    max-height: 60vh;
+    scroll-behavior: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
