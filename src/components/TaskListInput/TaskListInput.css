@@ -1,11 +1,12 @@
 .tasklistinput__container {
     height: 8vh;
-    width: 20vw;
+    min-width: 300px;
     background-color: #292A2F;
     margin: 10px;
     border-radius: 15px;
     display: flex;
-    color: #fff;justify-content: center;
+    color: #fff;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -27,6 +28,7 @@
 .tasklist__inputbox__container {
     display: flex;
     margin-left: 10px;
+    width: 100%;
 }
 
 .tasklist__input {

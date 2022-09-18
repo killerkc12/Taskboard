@@ -21,7 +21,7 @@ const TaskListInput = ({ board_id }) => {
                 tasklist_name: taskListName,
                 board_id: board_id
             }
-            const docRes = await addDoc(docRef, data);
+            await addDoc(docRef, data);
             setTaskLlistName('');
             setIsInput(true);
         }
