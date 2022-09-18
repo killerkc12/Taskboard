@@ -42,9 +42,6 @@ const Login = () => {
                 default_board: board_id,
                 default_tasklist: tasklist_id
             }, { merge: true });
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
         }
     }
     

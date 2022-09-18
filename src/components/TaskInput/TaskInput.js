@@ -16,16 +16,13 @@ const TaskInput = ({ tasklist_id }) => {
     }
 
     const AddNewTask = async () => {
-        console.log('add new task');
-        console.log('tasklist_id: ', tasklist_id);
         const docRef = collection(db, 'Task');
         const data = {
             task_name: taskName,
             tasklist_id: tasklist_id
         }
-        const docRes = await addDoc(docRef, data);
         setTaskName('');
-        console.log('docRes: ', docRes);
+        const docRes = await addDoc(docRef, data);
     }
 
      return (
