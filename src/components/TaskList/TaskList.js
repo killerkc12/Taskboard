@@ -12,7 +12,6 @@ const TaskList = (props) => {
   const [isTask, setIsTask] = useState(false);
 
   const GetAllTask = async () => {
-    console.log('in the Task')
     const q = query(collection(db, 'Task'), where('tasklist_id', '==', props.taskList.id));
     onSnapshot(q, (querySnapshot) => {
       const list = [];
@@ -20,15 +19,11 @@ const TaskList = (props) => {
         list.push({ id: doc.id, ...doc.data()})
     ));
       setTask(list);
-      console.log('list: ', list);
-      console.log('task: ', task);
     })
-    console.log(task);
     setIsTask(true);
   }
 
   useEffect(() => {
-    console.log('in the useEffect');
     if (!isTask) GetAllTask();
   }, [])
 

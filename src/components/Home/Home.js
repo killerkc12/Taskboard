@@ -6,6 +6,7 @@ import TaskList from '../TaskList/TaskList';
 import { collection, doc, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import Navbar from '../Navbar/Navbar';
+import TaskListInput from '../TaskListInput/TaskListInput';
 
 const Home = () => {
     const history = useNavigate ();
@@ -14,7 +15,6 @@ const Home = () => {
     const [isTaskList, setIsTaskList] = useState(false);
 
     const GetTaskList = async () => {
-      console.log(state.default_board);
       const q = query(collection(db, 'TaskList'), where('board_id', '==', state.default_board));
       onSnapshot(q, (querySnapshot) => {
         const list = [];
@@ -27,8 +27,6 @@ const Home = () => {
     }
 
     useEffect(() => {
-      console.log('state: ', state);
-      console.log('taskList: ', taskList);
       if (state !== null && !isTaskList) GetTaskList();
     }, [state])
 
@@ -48,6 +46,7 @@ const Home = () => {
               </div>
             })
           }
+          <TaskListInput board_id={state?.default_board} />
         </div>
       </div>
     </div>

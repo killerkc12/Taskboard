@@ -30,8 +30,6 @@ function App() {
     const user = JSON.parse(localStorage.getItem("user"));;
     if (user && state === null) {
       dispatch({type:"USER",payload: user})
-      // console.log('user', user);
-      // console.log('state: ', state);
     }
   },[state]);
 
