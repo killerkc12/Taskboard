@@ -7,6 +7,7 @@ import { db } from '../../firebase/firebase';
 
 const TaskInput = ({ tasklist_id }) => {
     const [isHover, setHover] = useState(false);
+    const [isInput, setIsInput] = useState(true);
     const [taskName, setTaskName] = useState('');
 
     const SetInputText = (e) => {
@@ -22,7 +23,8 @@ const TaskInput = ({ tasklist_id }) => {
             tasklist_id: tasklist_id
         }
         setTaskName('');
-        const docRes = await addDoc(docRef, data);
+        await addDoc(docRef, data);
+        setIsInput(true);
     }
 
      return (
@@ -35,10 +37,22 @@ const TaskInput = ({ tasklist_id }) => {
                     isHover && <AiFillPlusCircle  className='task__button__circle' />
                 }
           </div>
-          <div className="task__inputbox__container">
-              <input type="text" className='task__input' placeholder='Title' onKeyUp={(event) => SetInputText(event)}
-                onChange={(e) => setTaskName(e.target.value)} value={taskName} />
-          </div>
+          {
+                !isInput ?
+                (
+                    <div className="task__inputbox__container">
+                        <input type="text" className='task__input' placeholder='Title' onKeyUp={(event) => SetInputText(event)}
+                            onChange={(e) => setTaskName(e.target.value)} value={taskName} />
+                    </div>
+                ) :
+                (
+                    <div className="taskinput__button" onClick={() => setIsInput(!isInput)}>
+                        <div className='taskinput__text'>
+                            Add a task
+                        </div>
+                    </div>
+                )
+          }
       </div>
   )
 }
