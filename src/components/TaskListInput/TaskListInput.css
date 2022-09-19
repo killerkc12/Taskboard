@@ -1,0 +1,40 @@
+.tasklistinput__container {
+    height: 8vh;
+    min-width: 300px;
+    background-color: #292A2F;
+    margin: 10px;
+    border-radius: 15px;
+    display: flex;
+    color: #fff;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tasklistinput__button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tasklistinput__text {
+    padding-left: 5px;
+}
+
+.tasklist__input_container {
+    display: flex;
+    padding: 10px 15px;
+}
+
+.tasklist__inputbox__container {
+    display: flex;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.tasklist__input {
+    background: transparent;
+    border: none;
+    outline: none;
+    /* border-bottom: 1px solid #fff; */
+    color: #fff;
+}

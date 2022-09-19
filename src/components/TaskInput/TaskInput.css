@@ -1,0 +1,51 @@
+.task__input_container {
+    display: flex;
+    padding: 10px 15px;
+}
+
+.task__input_container:hover {
+    background-color: #3A3C45;
+}
+
+.task__inputbox__container {
+    display: flex;
+    margin-left: 10px;
+}
+
+.task__inputbox__container button {
+    cursor: pointer;
+}
+
+.task__button__container {
+    display: flex;
+}
+
+.task__input {
+    background: transparent;
+    border: none;
+    outline: none;
+    /* border-bottom: 1px solid #fff; */
+    color: #fff;
+}
+
+.task__button {
+    font-size: 20px;
+    color: #2684FC;
+    cursor: pointer;
+}
+
+.task__button__circle {
+    font-size: 20px;
+    color: #2684FC;
+    cursor: pointer;
+}
+
+.taskinput__button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.taskinput__text {
+    padding-left: 5px;
+}
