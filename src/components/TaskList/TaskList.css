@@ -1,5 +1,5 @@
 .tasklist__container {
-    height: 75vh;
+    max-height: 75vh;
     min-width: 300px;
     background-color: #292A2F;
     margin: 10px;

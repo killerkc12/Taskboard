@@ -3,6 +3,12 @@
     justify-items: center;
     align-items: center;
     padding: 10px 15px;
+    justify-content: space-between;
+}
+
+.task__start {
+    display: flex;
+    align-items: center;
 }
 
 .task__container:hover {
@@ -23,3 +29,34 @@
     color: #2684FC;
     cursor: pointer;
 }
+
+.task__options {
+    cursor: pointer;
+}
+
+/*  */
+
+.menu {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    background: #3A3C45;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px;
+    height: 28px;
+    /* border-bottom: 1px solid rgb(187, 187, 187); */
+  }
+
+  .menu-icon {
+    margin-right: 5px;
+  }
+  .menu-item:hover {
+    color: #2980b9;
+  }
