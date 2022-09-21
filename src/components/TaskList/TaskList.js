@@ -18,6 +18,7 @@ const TaskList = (props) => {
       querySnapshot.docs.map((doc) => (
         list.push({ id: doc.id, ...doc.data()})
     ));
+      list.sort((a, b) => a.createdOn > b.createdOn ? -1 : 1);
       setTask(list);
     })
     setIsTask(true);

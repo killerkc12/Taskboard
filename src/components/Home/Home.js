@@ -21,6 +21,7 @@ const Home = () => {
         querySnapshot.docs.map((doc) => (
           list.push({ id: doc.id, ...doc.data() }
           )));
+          list.sort((a, b) => a.createdOn > b.createdOn ? -1 : 1);
         setTaskList(list);
       })
       setIsTaskList(true);
@@ -36,6 +37,7 @@ const Home = () => {
       <div className='home__container'>
         {/* TODO: Board name */}
         <h3>Main Board</h3>
+        { new Date().toString()}
 
         {/* List of Task list */}
         <div className="home__tasklist">
