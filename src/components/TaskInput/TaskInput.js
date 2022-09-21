@@ -20,7 +20,8 @@ const TaskInput = ({ tasklist_id }) => {
         const docRef = collection(db, 'Task');
         const data = {
             task_name: taskName,
-            tasklist_id: tasklist_id
+            tasklist_id: tasklist_id,
+            createdOn: new Date()
         }
         setTaskName('');
         await addDoc(docRef, data);

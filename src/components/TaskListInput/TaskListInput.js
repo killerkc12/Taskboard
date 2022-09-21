@@ -19,7 +19,8 @@ const TaskListInput = ({ board_id }) => {
             const docRef = collection(db, 'TaskList');
             const data = {
                 tasklist_name: taskListName,
-                board_id: board_id
+                board_id: board_id,
+                createdOn: new Date()
             }
             await addDoc(docRef, data);
             setTaskLlistName('');
