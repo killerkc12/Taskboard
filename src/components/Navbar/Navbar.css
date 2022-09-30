@@ -1,4 +1,5 @@
 .navbar__container {
+    position: fixed;
     display: flex;
     -webkit-box-align: center;
     align-items: center;
