@@ -17,10 +17,10 @@ Before installation, please make sure you have already installed following tools
 
 1. Fork the project
 2. Clone the project
-3. Navigate to the project directory `cd LinkFree`
+3. Navigate to the project directory `cd Taskboard`
 4. Install dependencies with `npm install`
 5. Run `npm start`
-6. Optional : Run the tests with `npm run cypress:run`
+<!-- 6. Optional : Run the tests with `npm run cypress:run` -->
 
 <!-- Alternatively, skip all the steps by using [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/EddieHubCommunity/LinkFree/) -->
 
