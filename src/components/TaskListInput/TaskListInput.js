@@ -42,7 +42,7 @@ const TaskListInput = ({ board_id }) => {
                         </div>
                     ) :
                     (
-                        <div className="tasklist__input_container">
+                        <div className='tasklist__input_container'>
                             <div className="tasklist__inputbox__container">
                                 <input type="text" className='tasklist__input' placeholder='Title' onKeyUp={(event) => SetInputText(event)}
                                     onChange={(e) => setTaskLlistName(e.target.value)} value={taskListName} />
