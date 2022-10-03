@@ -29,7 +29,7 @@ const TaskInput = ({ tasklist_id }) => {
     };
 
     return (
-        <div className="task__input_container" onMouseOut={() => setHover(false)} onMouseMove={() => setHover(true)}>
+        <div className="task__input_container task_button_text" onMouseOut={() => setHover(false)} onMouseMove={() => setHover(true)}>
             <div className="task__button__container">
                 {   
                     !isHover && <AiOutlinePlus  className='task__button' />
@@ -49,7 +49,7 @@ const TaskInput = ({ tasklist_id }) => {
                     (
                         <div className="taskinput__button" onClick={() => setIsInput(!isInput)}>
                             <div className='taskinput__text'>
-                            Add a task
+                                Add a task
                             </div>
                         </div>
                     )
