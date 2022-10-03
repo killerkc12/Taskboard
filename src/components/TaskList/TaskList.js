@@ -2,6 +2,7 @@
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase';
+import Loader from '../Loader/Loader';
 import Task from '../Task/Task';
 import TaskInput from '../TaskInput/TaskInput';
 import './TaskList.css';
@@ -9,6 +10,7 @@ import './TaskList.css';
 const TaskList = (props) => {
     const [task, setTask] = useState([]);
     const [isTask, setIsTask] = useState(false);
+    const [isTaskLoading, setTaskLoading] = useState(true);
 
     const GetAllTask = async () => {
         const q = query(collection(db, 'Task'), where('tasklist_id', '==', props.taskList.id));
@@ -19,6 +21,7 @@ const TaskList = (props) => {
             ));
             list.sort((a, b) => a.createdOn > b.createdOn ? -1 : 1);
             setTask(list);
+            setTaskLoading(false);
         });
         setIsTask(true);
     };
@@ -36,14 +39,16 @@ const TaskList = (props) => {
 
             {/* add task here */}
             <div className="tasklist__tasks">
-                <TaskInput tasklist_id={props.taskList.id} />
-                {
-                    task?.map((item, index) => {
-                        return <div key={index}>
-                            <Task task={item} />
-                        </div>;
-                    })
-                }
+                { isTaskLoading ? <Loader /> : <>
+                    <TaskInput tasklist_id={props.taskList.id} />
+                    {
+                        task?.map((item, index) => {
+                            return <div key={index}>
+                                <Task task={item} />
+                            </div>;
+                        })
+                    }
+                </>}
             </div>
         </div>
     );
