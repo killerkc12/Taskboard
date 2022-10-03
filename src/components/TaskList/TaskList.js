@@ -5,6 +5,10 @@ import { db } from '../../firebase/firebase';
 import Task from '../Task/Task';
 import TaskInput from '../TaskInput/TaskInput';
 import './TaskList.css';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import Popup from 'reactjs-popup';
+import { MdDelete } from 'react-icons/md';
+import { deleteDoc, doc } from 'firebase/firestore';
 
 const TaskList = (props) => {
     const [task, setTask] = useState([]);
@@ -15,7 +19,7 @@ const TaskList = (props) => {
         onSnapshot(q, (querySnapshot) => {
             const list = [];
             querySnapshot.docs.map((doc) => (
-                list.push({ id: doc.id, ...doc.data()})
+                list.push({ id: doc.id, ...doc.data() })
             ));
             list.sort((a, b) => a.createdOn > b.createdOn ? -1 : 1);
             setTask(list);
@@ -31,7 +35,26 @@ const TaskList = (props) => {
         <div className='tasklist__container'>
             {/* TODO: tasklist header */}
             <div className="tasklist__header">
-                <div className='tasklist__header__name'>{ props.taskList.tasklist_name }</div>
+                <div className='tasklist__header__name'>
+                    <span>{props.taskList.tasklist_name}</span>
+                    <Popup
+                        trigger={
+                            <div className="task__options">
+                                <BsThreeDotsVertical />
+                            </div>
+                        }
+                        position="right top"
+                        on="click"
+                        closeOnDocumentClick
+                        mouseLeaveDelay={300}
+                        mouseEnterDelay={0}
+                        contentStyle={{ padding: '0px', border: 'none' }}
+                        arrowStyle={{ color: '#3A3C45' }}
+                        arrow={true}
+                    >
+                        <MenuOptions id = {props.taskList.id} />
+                    </Popup>
+                </div>
             </div>
 
             {/* add task here */}
@@ -44,6 +67,23 @@ const TaskList = (props) => {
                         </div>;
                     })
                 }
+            </div>
+
+        </div>
+    );
+};
+
+const MenuOptions = ({id}) => {
+    const DeleteTask = async (id) => {
+        await deleteDoc(doc(db, 'TaskList', id));
+    };
+    return (
+        <div className="menu">
+            <div className="menu-item"
+                onClick={() => DeleteTask(id)}
+            > 
+                <MdDelete className='menu-icon' />
+                Delete 
             </div>
         </div>
     );

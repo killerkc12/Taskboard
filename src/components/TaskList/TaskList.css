@@ -8,9 +8,15 @@
 }
 
 .tasklist__header__name {
+    display: flex;
     padding-left: 15px;
+    padding-right: 15px;
     padding-top: 15px;
     font-weight: 500;
+}
+
+.tasklist__header__name span{
+    flex-grow: 1;
 }
 
 .tasklist__tasks {
