@@ -6,11 +6,13 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import Navbar from '../Navbar/Navbar';
 import TaskListInput from '../TaskListInput/TaskListInput';
+import Loader from '../Loader/Loader';
 
 const Home = () => {
     const {state} = useContext(UserContext);
     const [taskList, setTaskList] = useState([]);
     const [isTaskList, setIsTaskList] = useState(false);
+    const [isTaskListLoading, setTaskListLoading] = useState(true);
 
     const GetTaskList = async () => {
         const q = query(collection(db, 'TaskList'), where('board_id', '==', state.default_board));
@@ -21,6 +23,7 @@ const Home = () => {
                 )));
             list.sort((a, b) => a.createdOn > b.createdOn ? -1 : 1);
             setTaskList(list);
+            setTaskListLoading(false);
         });
         setIsTaskList(true);
     };
@@ -39,13 +42,17 @@ const Home = () => {
                 {/* List of Task list */}
                 <div className="home__tasklist">
                     {
-                        taskList?.map((item, index) => {
-                            return <div key={index}>
-                                <TaskList  taskList={item} />
-                            </div>;
-                        })
+                        isTaskListLoading ? <Loader /> : <>
+                            {
+                                taskList?.map((item, index) => {
+                                    return <div key={index}>
+                                        <TaskList taskList={item} />
+                                    </div>;
+                                })
+                            }
+                            <TaskListInput board_id={state?.default_board} />
+                        </>
                     }
-                    <TaskListInput board_id={state?.default_board} />
                 </div>
             </div>
         </div>
