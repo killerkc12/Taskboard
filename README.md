@@ -4,7 +4,7 @@
 
 ## 👨‍💻 Demo
 
-Check out the website: [Taskboard](https://taskboard-9f2i13rwu-killerkc12.vercel.app/)
+Check out the website: [Taskboard](https://taskboard-killerkc12.vercel.app/)
 
 ## 👇 Prerequisites
 
