@@ -22,7 +22,7 @@ Before installation, please make sure you have already installed following tools
 5. Run `npm start`
 6. Optional : Run the tests with `npm run cypress:run`
 
-Alternatively, skip all the steps by using [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/EddieHubCommunity/LinkFree/)
+<!-- Alternatively, skip all the steps by using [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/EddieHubCommunity/LinkFree/) -->
 
 ## 👨‍💻 Contributing
 
