@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase';
 import Loader from '../Loader/Loader';
@@ -10,6 +10,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import Popup from 'reactjs-popup';
 import { MdDelete } from 'react-icons/md';
 import { deleteDoc, doc } from 'firebase/firestore';
+import { MdBrush } from 'react-icons/md';
 
 const TaskList = (props) => {
     const [task, setTask] = useState([]);
@@ -35,7 +36,7 @@ const TaskList = (props) => {
     }, []);
 
     return (
-        <div className='tasklist__container'>
+        <div className='tasklist__container' style={{backgroundColor: props.taskList.color}}>
             {/* TODO: tasklist header */}
             <div className="tasklist__header">
                 <div className='tasklist__header__name'>
@@ -55,7 +56,7 @@ const TaskList = (props) => {
                         arrowStyle={{ color: '#3A3C45' }}
                         arrow={true}
                     >
-                        <MenuOptions id = {props.taskList.id} />
+                        <MenuOptions taskList = {props.taskList} />
                     </Popup>
                 </div>
             </div>
@@ -78,17 +79,34 @@ const TaskList = (props) => {
     );
 };
 
-const MenuOptions = ({id}) => {
+const MenuOptions = (props) => {
+    const [listColor, setListColor] = useState('#3A3C45');
+
     const DeleteTask = async (id) => {
         await deleteDoc(doc(db, 'TaskList', id));
     };
+
+    const SetListColor = async (color) => {
+        const docRef = doc(db, 'TaskList', props.taskList.id);
+        await updateDoc(docRef, {
+            color: color
+        });
+    };
+
     return (
         <div className="menu">
             <div className="menu-item"
-                onClick={() => DeleteTask(id)}
+                onClick={() => DeleteTask(props.taskList.id)}
             > 
                 <MdDelete className='menu-icon' />
-                Delete 
+                Delete list
+            </div>
+            <div className="menu-item"
+                // onClick={() => DeleteTask(id)}
+            > 
+                <MdBrush className='menu-icon' />
+                Set Color - &nbsp;
+                <input type='color' value={props.taskList.color} onChange={(e) => SetListColor(e.target.value)} />
             </div>
         </div>
     );

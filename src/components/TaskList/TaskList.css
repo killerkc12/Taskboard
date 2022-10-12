@@ -26,3 +26,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.menu-item > input {
+    cursor: pointer;
+}
