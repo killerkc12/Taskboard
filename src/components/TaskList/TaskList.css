@@ -30,3 +30,23 @@
 .menu-item > input {
     cursor: pointer;
 }
+
+.tasklist_completed_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.tasklist_completed {
+    font-size: 1rem;
+    font-weight: 500;
+    color: gray;
+}
+
+.tasklist_completed_container > .down_arrow, .up_arrow {
+    color: gray;
+    font-size: 1rem;
+    font-weight: 500;
+}

@@ -24,7 +24,7 @@ const Home = () => {
             querySnapshot.docs.map((doc) => (
                 list.push({ id: doc.id, ...doc.data() }
                 )));
-            list.sort((a, b) => a.createdOn > b.createdOn ? -1 : 1);
+            list.sort((a, b) => a.createdOn > b.createdOn ? 1 : -1);
             setTaskList(list);
             setTaskListLoading(false);
         });

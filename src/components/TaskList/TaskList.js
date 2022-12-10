@@ -11,21 +11,28 @@ import Popup from 'reactjs-popup';
 import { MdDelete } from 'react-icons/md';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { MdBrush } from 'react-icons/md';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 const TaskList = (props) => {
     const [task, setTask] = useState([]);
+    const [completedTask, setCompletedTask] = useState([]);
     const [isTask, setIsTask] = useState(false);
     const [isTaskLoading, setTaskLoading] = useState(true);
+    const [isCompletedTaskCollapsed, setCompletedTaskCollapsed] = useState(false);
 
     const GetAllTask = async () => {
         const q = query(collection(db, 'Task'), where('tasklist_id', '==', props.taskList.id));
         onSnapshot(q, (querySnapshot) => {
             const list = [];
-            querySnapshot.docs.map((doc) => (
-                list.push({ id: doc.id, ...doc.data() })
-            ));
+            const completedList = [];
+            querySnapshot.docs.forEach((doc) => {
+                if (doc.data().isCompleted === true) 
+                    completedList.push({ id: doc.id, ...doc.data() });
+                else list.push({ id: doc.id, ...doc.data() })
+            });
             list.sort((a, b) => a.createdOn > b.createdOn ? -1 : 1);
             setTask(list);
+            setCompletedTask(completedList);
             setTaskLoading(false);
         });
         setIsTask(true);
@@ -33,7 +40,7 @@ const TaskList = (props) => {
 
     useEffect(() => {
         if (!isTask) GetAllTask();
-    }, []);
+    });
 
     return (
         <div className='tasklist__container' style={{backgroundColor: props.taskList.color}}>
@@ -72,6 +79,24 @@ const TaskList = (props) => {
                             </div>;
                         })
                     }
+                    <div className='tasklist_completed_container'
+                         onClick={() => setCompletedTaskCollapsed(!isCompletedTaskCollapsed)}
+                    >
+                        <p className='tasklist_completed'>
+                            Completed ({completedTask.length})
+                        </p>
+                        {
+                            isCompletedTaskCollapsed ? <IoIosArrowUp className='up_arrow' /> : <IoIosArrowDown className='down_arrow' />
+                        }
+                    </div>
+                    {
+                        isCompletedTaskCollapsed &&
+                        completedTask?.map((item, index) => {
+                            return <div key={index}>
+                                <Task task={item} isCompleted={true} />
+                            </div>;
+                        })
+                    }
                 </>}
             </div>
 
@@ -80,7 +105,6 @@ const TaskList = (props) => {
 };
 
 const MenuOptions = (props) => {
-    const [listColor, setListColor] = useState('#3A3C45');
 
     const DeleteTask = async (id) => {
         await deleteDoc(doc(db, 'TaskList', id));

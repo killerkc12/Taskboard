@@ -12,8 +12,7 @@ function App() {
     const user = JSON.parse(localStorage.getItem('user'));
     
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user && state === null) {
+        const user = JSON.parse(localStorage.getItem('user')); if (user && state === null) {
             dispatch({type:'USER',payload: user});
         }
     },[state]);

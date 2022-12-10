@@ -6,14 +6,13 @@
     border-radius: 15px;
     display: flex;
     color: #fff;
-    justify-content: center;
-    align-items: center;
 }
 
 .tasklistinput__button {
     display: flex;
     align-items: center;
     cursor: pointer;
+    padding-left: 87px;
 }
 
 .tasklistinput__text {
@@ -23,6 +22,8 @@
 .tasklist__input_container {
     display: flex;
     padding: 10px 15px;
+    align-items: flex-start;
+    align-self: center;
 }
 
 .tasklist__inputbox__container {

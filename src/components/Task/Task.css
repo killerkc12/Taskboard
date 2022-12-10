@@ -4,6 +4,7 @@
     align-items: center;
     padding: 10px 15px;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .task__start {
@@ -17,6 +18,12 @@
 
 .task__name {
     margin-left: 10px;
+}
+
+.task__name__completed {
+    margin-left: 10px;
+    text-decoration: line-through;
+    color: gray;
 }
 
 .task__icon__circle {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './TaskInput.css';
 import { AiOutlinePlus, AiFillPlusCircle } from 'react-icons/ai';
 import { addDoc, collection } from 'firebase/firestore';
@@ -8,7 +8,7 @@ import { db } from '../../firebase/firebase';
 const TaskInput = ({ tasklist_id }) => {
     const [isHover, setHover] = useState(false);
     const [isInput, setIsInput] = useState(true);
-    const [taskName, setTaskName] = useState('');
+    const taskNameRef = useRef('');
 
     const SetInputText = (e) => {
         if (e.key === 'Enter' && e.target.value !== '') {
@@ -19,17 +19,21 @@ const TaskInput = ({ tasklist_id }) => {
     const AddNewTask = async () => {
         const docRef = collection(db, 'Task');
         const data = {
-            task_name: taskName,
+            task_name: taskNameRef.current.value,
             tasklist_id: tasklist_id,
             createdOn: new Date()
         };
-        setTaskName('');
+        taskNameRef.current.value = '';
         await addDoc(docRef, data);
         setIsInput(true);
     };
 
     return (
-        <div className="task__input_container task_button_text" onMouseOut={() => setHover(false)} onMouseMove={() => setHover(true)}>
+        <div className="task__input_container task_button_text" 
+            onMouseOut={() => setHover(false)} 
+            onMouseMove={() => setHover(true)}
+            onClick={() => setIsInput(!isInput)}
+        >
             <div className="task__button__container">
                 {   
                     !isHover && <AiOutlinePlus  className='task__button' />
@@ -43,11 +47,13 @@ const TaskInput = ({ tasklist_id }) => {
                     (
                         <div className="task__inputbox__container">
                             <input type="text" className='task__input' placeholder='Title' onKeyUp={(event) => SetInputText(event)}
-                                onChange={(e) => setTaskName(e.target.value)} value={taskName} />
+                                ref={taskNameRef}
+                                autoFocus={true}
+                            />
                         </div>
                     ) :
                     (
-                        <div className="taskinput__button" onClick={() => setIsInput(!isInput)}>
+                        <div className="taskinput__button">
                             <div className='taskinput__text'>
                                 Add a task
                             </div>
