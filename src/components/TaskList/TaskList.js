@@ -68,7 +68,6 @@ const TaskList = (props) => {
                 </div>
             </div>
 
-            {/* add task here */}
             <div className="tasklist__tasks">
                 { isTaskLoading ? <Loader /> : <>
                     <TaskInput tasklist_id={props.taskList.id} />

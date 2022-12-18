@@ -20,7 +20,7 @@ const Task = (props) => {
     const UpdateTaskStatus = async () => {
         const docRef = doc(db, 'Task', props.task.id);
         await updateDoc(docRef, {
-            isCompleted: true
+            isCompleted: props.isCompleted ? false : true
         });
     };
 
