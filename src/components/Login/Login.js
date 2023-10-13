@@ -5,11 +5,9 @@ import { auth, db, provider } from '../../firebase/firebase';
 import GoogleButton from 'react-google-button';
 import './Login.css';
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
-import Darkmode from 'darkmode-js';
 const Login = () => {
     const {dispatch} = useContext(UserContext);
     
-    new Darkmode().showWidget();
     const Login = async () => {
         const result = await signInWithPopup(auth, provider);
         

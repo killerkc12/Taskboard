@@ -12,11 +12,14 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import { MdDelete } from 'react-icons/md';
 
 const Home = () => {
-    const {state} = useContext(UserContext);
+    const { state } = useContext(UserContext);
     const [taskList, setTaskList] = useState([]);
     const [isTaskList, setIsTaskList] = useState(false);
     const [isTaskListLoading, setTaskListLoading] = useState(true);
-
+    const [isDarkMode, setDarkMode] = useState(false);
+    const toggleMode = () => {
+        setDarkMode(!isDarkMode);
+      };
     const GetTaskList = async () => {
         const q = query(collection(db, 'TaskList'), where('board_id', '==', state.default_board));
         onSnapshot(q, (querySnapshot) => {
@@ -37,7 +40,7 @@ const Home = () => {
 
     return (
         <div className='main__container'>
-            { state?.uid && <Navbar /> }
+            {state?.uid && <Navbar />}
             <div className='home__container'>
                 <div className='board_container'>
                     <h3>Main Board</h3>
@@ -56,7 +59,7 @@ const Home = () => {
                         arrowStyle={{ color: '#3A3C45' }}
                         arrow={true}
                     >
-                        <MenuOptions id = {state?.default_board} />
+                        <MenuOptions id={state?.default_board} />
                     </Popup>
                 </div>
 
@@ -75,13 +78,20 @@ const Home = () => {
                         </>
                     }
                 </div>
+                <button
+        className={`mode-button ${isDarkMode ? 'dark' : 'light'}`}
+        onClick={toggleMode}
+      >
+        {isDarkMode ? '🌙 Dark Mode' : '☀ Light Mode'}
+      </button>
             </div>
+           
         </div>
     );
 };
 
 // eslint-disable-next-line react/prop-types
-const MenuOptions = ({id}) => {
+const MenuOptions = ({ id }) => {
     const DeleteTask = async (id) => {
         await deleteDoc(doc(db, 'Board', id));
     };
@@ -89,9 +99,9 @@ const MenuOptions = ({id}) => {
         <div className="menu">
             <div className="menu-item"
                 onClick={() => DeleteTask(id)}
-            > 
+            >
                 <MdDelete className='menu-icon' />
-                Delete 
+                Delete
             </div>
         </div>
     );
