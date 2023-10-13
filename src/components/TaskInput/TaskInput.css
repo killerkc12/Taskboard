@@ -1,54 +1,52 @@
 .task__input_container {
-    display: flex;
-    padding: 10px 15px;
+  display: flex;
+  padding: 1rem 1.5rem;
 }
 
 .task__input_container:hover {
-    background-color: #3A3C45;
+  background-color: #3a3c45;
 }
 
 .task__inputbox__container {
-    display: flex;
-    margin-left: 10px;
+  display: flex;
+  margin-left: 1rem;
 }
 
 .task__inputbox__container button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .task__button__container {
-    display: flex;
+  display: flex;
 }
 
 .task__input {
-    background: transparent;
-    border: none;
-    outline: none;
-    /* border-bottom: 1px solid #fff; */
-    color: #fff;
+  background: transparent;
+  border: none;
+  outline: none;
+  /* border-bottom: 1px solid #fff; */
+  color: #fff;
 }
 
 .task__button {
-    font-size: 20px;
-    color: #2684FC;
-    cursor: pointer;
+  font-size: 2rem;
+  color: #2684fc;
+  cursor: pointer;
 }
 
 .task__button__circle {
-    font-size: 20px;
-    color: #2684FC;
-    cursor: pointer;
+  font-size: 2rem;
+  color: #2684fc;
+  cursor: pointer;
 }
 
 .taskinput__button {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
- 
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .taskinput__text {
-    padding-left: 5px;
-  
-  
+  font-size: 1.6rem;
+  padding-left: 0.5rem;
 }
