@@ -5,10 +5,9 @@ import { auth, db, provider } from '../../firebase/firebase';
 import GoogleButton from 'react-google-button';
 import './Login.css';
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
-
 const Login = () => {
     const {dispatch} = useContext(UserContext);
-
+    
     const Login = async () => {
         const result = await signInWithPopup(auth, provider);
         
