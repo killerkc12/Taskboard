@@ -1,52 +1,61 @@
 .tasklist__container {
-    max-height: 75vh;
-    min-width: 300px;
-    background-color: #292A2F;
-    margin: 10px;
-    border-radius: 15px;
-    color: #fff;
+  max-height: 83vh;
+  min-width: 300px;
+  background-color: #292a2f;
+  margin: 10px;
+  border-radius: 15px;
+  color: #fff;
 }
 
 .tasklist__header__name {
-    display: flex;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 15px;
-    font-weight: 500;
+  display: flex;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+  font-weight: 500;
 }
 
-.tasklist__header__name span{
-    flex-grow: 1;
+.tasklist__header__name span {
+  flex-grow: 1;
 }
 
 .tasklist__tasks {
-    margin-top: 20px;
-    max-height: 60vh;
-    scroll-behavior: auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+  margin-top: 20px;
+  max-height: 75vh;
+  scroll-behavior: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  -ms-overflow-style: none; /* Hide the scrollbar in IE and Microsoft-Edge */
+  scrollbar-width: none; /* SUPPORTED IN FIREFOX. Not supported in google-chrome, IE & Microsoft-Edge*/
+}
+
+/* FOR GOOGLE-CHROME: to hide scrollbar*/
+.tasklist__tasks::-webkit-scrollbar {
+  display: none;
 }
 
 .menu-item > input {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tasklist_completed_container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 15px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 15px;
+  cursor: pointer;
 }
 
 .tasklist_completed {
-    font-size: 1rem;
-    font-weight: 500;
-    color: gray;
+  font-size: 1rem;
+  font-weight: 500;
+  color: gray;
 }
 
-.tasklist_completed_container > .down_arrow, .up_arrow {
-    color: gray;
-    font-size: 1rem;
-    font-weight: 500;
+.tasklist_completed_container > .down_arrow,
+.up_arrow {
+  color: gray;
+  font-size: 1rem;
+  font-weight: 500;
 }
