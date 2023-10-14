@@ -16,10 +16,7 @@ const Home = () => {
     const [taskList, setTaskList] = useState([]);
     const [isTaskList, setIsTaskList] = useState(false);
     const [isTaskListLoading, setTaskListLoading] = useState(true);
-    const [isDarkMode, setDarkMode] = useState(false);
-    const toggleMode = () => {
-        setDarkMode(!isDarkMode);
-      };
+   
     const GetTaskList = async () => {
         const q = query(collection(db, 'TaskList'), where('board_id', '==', state.default_board));
         onSnapshot(q, (querySnapshot) => {
@@ -78,12 +75,7 @@ const Home = () => {
                         </>
                     }
                 </div>
-                <button
-        className={`mode-button ${isDarkMode ? 'dark' : 'light'}`}
-        onClick={toggleMode}
-      >
-        {isDarkMode ? '🌙 Dark Mode' : '☀ Light Mode'}
-      </button>
+              
             </div>
            
         </div>
