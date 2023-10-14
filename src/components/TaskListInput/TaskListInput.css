@@ -1,41 +1,52 @@
 .tasklistinput__container {
-    height: 8vh;
-    min-width: 300px;
-    background-color: #292A2F;
-    margin: 10px;
-    border-radius: 15px;
-    display: flex;
-    color: #fff;
+  height: 8vh;
+  min-width: 30rem;
+  background-color: #292a2f;
+  margin: 1rem;
+  border-radius: 1.5rem;
+  display: flex;
+  color: #fff;
 }
 
 .tasklistinput__button {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding-left: 87px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding-left: 8.7rem;
 }
 
 .tasklistinput__text {
-    padding-left: 5px;
+  padding-left: 0.5rem;
 }
 
 .tasklist__input_container {
-    display: flex;
-    padding: 10px 15px;
-    align-items: flex-start;
-    align-self: center;
+  display: flex;
+  padding: 1rem 1.5rem;
+  align-items: flex-start;
+  align-self: center;
 }
 
 .tasklist__inputbox__container {
-    display: flex;
-    margin-left: 10px;
-    width: 100%;
+  display: flex;
+  margin-left: 1rem;
+  width: 100%;
 }
 
 .tasklist__input {
-    background: transparent;
-    border: none;
-    outline: none;
-    /* border-bottom: 1px solid #fff; */
-    color: #fff;
+  background: transparent;
+  border: none;
+  outline: none;
+  /* border-bottom: .1rem solid #fff; */
+  color: #fff;
+}
+
+@media screen and (max-width: 350px) {
+  .tasklistinput__container {
+    min-width: 25rem;
+  }
+
+  .tasklistinput__button {
+    padding-left: 6.5rem;
+  }
 }
