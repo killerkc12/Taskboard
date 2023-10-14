@@ -40,3 +40,13 @@
   /* border-bottom: .1rem solid #fff; */
   color: #fff;
 }
+
+@media screen and (max-width: 350px) {
+  .tasklistinput__container {
+    min-width: 25rem;
+  }
+
+  .tasklistinput__button {
+    padding-left: 6.5rem;
+  }
+}

@@ -1,5 +1,5 @@
 .tasklist__container {
-  max-height: 75vh;
+  /* max-height: 83vh; */
   min-width: 30rem;
   background-color: #292a2f;
   margin: 1rem;
@@ -23,7 +23,7 @@
 
 .tasklist__tasks {
   margin-top: 2rem;
-  max-height: 64vh;
+  max-height: 73vh;
   scroll-behavior: auto;
   overflow-y: auto;
   overflow-x: hidden;
@@ -60,4 +60,10 @@
   color: gray;
   font-size: 1.6rem;
   font-weight: 500;
+}
+
+@media screen and (max-width: 350px) {
+  .tasklist__container {
+    min-width: 25rem;
+  }
 }

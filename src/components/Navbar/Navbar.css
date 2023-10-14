@@ -6,6 +6,7 @@
   -webkit-box-pack: justify;
   justify-content: space-between;
   width: 100vw;
+  min-height: 6rem;
   background-color: rgb(31, 32, 36);
   box-shadow: rgb(169 174 183 / 50%) 0 0.1rem 0.2rem 0;
 }
@@ -124,6 +125,20 @@
 
 @media screen and (max-width: 640px) {
   .navbar__middle {
-    width: 20%;
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar__logo__text {
+    display: none;
+  }
+
+  .search__logo_container {
+    height: 3rem;
+  }
+
+  .input__container {
+    height: 3rem;
   }
 }

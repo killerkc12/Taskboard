@@ -6,14 +6,12 @@
 
 .home__tasklist {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 3rem;
 }
 
 .main__container {
   background-color: #1f2024;
   overflow-y: hidden;
+  height: 100vh;
 }
 
 .board_container {
@@ -25,4 +23,16 @@
   padding-top: 1.5rem;
   font-size: 1.6rem;
   font-weight: 500;
+}
+
+@media screen and (max-width: 480px) {
+  .home__tasklist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main__container {
+    height: stretch;
+  }
 }
