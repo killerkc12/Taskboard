@@ -32,12 +32,12 @@ label
     display: block;
     position: absolute;
     top: 50%;
-    right: 0;
-    /* left: 0; */
-    width: 116px;
-    height: 56px;
+    right: -80%;
+    /* left: 80%; */
+    width: 80px;
+    height: 40px;
     margin: 0 auto;
-    background-color: #e5ecf4;
+    background-color: #094992;
     border-radius: 56px;
     transform: translate(0,-50%);
     cursor: pointer;
@@ -48,34 +48,24 @@ label
 #star
 {
     position: absolute;
-    top: 13px;
+    top: 10px;
     left: 13px;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     background-color: #fafd0f;
-    transform: scale(1);
+    transform: scale(1.3);
     border-radius: 50%;
     transition: 0.3s ease top, 0.3s ease left, 0.3s ease transform, 0.3s ease background-color;
     z-index: 1;
 }
 
-#star-1
-{
-    position: relative;
-}
 
-#star-2
-{
-    position: absolute;
-    transform: rotateZ(36deg);
-}
+
+
 
 .star
 {
-    top: 0;
-    left: -7px;
-    font-size: 54px;
-    line-height: 28px;
+    /*  */
     color: #fafd0f;
     transition: 0.3s ease color;
 }
@@ -83,11 +73,11 @@ label
 #moon
 {
     position: absolute;
-    bottom: -52px;
+    bottom: -48px;
     right: 8px;
-    width: 40px;
-    height: 40px;
-    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    background-color: #d1a5a5;
     border-radius: 50%;
     transition: 0.3s ease bottom;
 }
@@ -100,7 +90,6 @@ label
     left: -17px;
     width: 40px;
     height: 40px;
-    background-color:#03a9f4;
     border-radius: 50%;
     transition: 0.3s ease background-color;
 }
@@ -114,7 +103,7 @@ label
 {
     top: 3px;
     left: 64px;
-    transform: scale(0.3);
+    transform: scale(0);
     background-color: yellow;
 }
 
@@ -125,7 +114,7 @@ label
 
 #toggle_checkbox:checked + label #moon
 {
-    bottom: 8px;
+    bottom: 7px;
 }
 
 #toggle_checkbox:checked + label #moon:before

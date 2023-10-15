@@ -28,12 +28,12 @@ const Navbar = () => {
                 <div className="input__container">
                     <input type="text" placeholder='Search' className='search__input' />
                 </div>
-        
+                <Togglebtn/>
+
             </div>
-            
            
             {/* TODO: Profile Photoz */}
-            <Togglebtn/>
+           
 
             <Popup
                 trigger={
