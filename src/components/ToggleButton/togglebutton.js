@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './togglebutton.css'
 export default function togglebutton() {
   return (
     <div>
