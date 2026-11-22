@@ -42,6 +42,8 @@ const Home = () => {
 
   useEffect(() => {
     if (state !== null && !isTaskList) GetTaskList();
+    // Runs once the user is loaded; GetTaskList subscribes only on the first call.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   return (
