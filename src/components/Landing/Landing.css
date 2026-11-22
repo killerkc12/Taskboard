@@ -41,6 +41,13 @@
 .landing__feature h3 { margin: 14px 0 6px; font-size: 19px; }
 .landing__feature p { margin: 0; color: #b8bac4; font-size: 15px; }
 
+.landing__how { max-width: 1200px; margin: 0 auto; padding: 0 max(5vw, 16px) clamp(48px, 7vw, 88px); }
+.landing__steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 28px; margin-top: 28px; }
+.landing__step { border-top: 2px solid #3a3c45; padding-top: 18px; }
+.landing__num { font-size: 44px; font-weight: 800; color: #2f5fa3; line-height: 1; }
+.landing__step h3 { margin: 10px 0 6px; font-size: 19px; }
+.landing__step p { margin: 0; color: #b8bac4; font-size: 15px; }
+
 .landing__final { text-align: center; padding: clamp(48px, 7vw, 88px) max(5vw, 16px); background: #2684fc; color: #fff; }
 .landing__final p { margin: 12px 0 26px; color: #e3eeff; }
 .landing__final .landing__btn { background: #fff; color: #1a5fc0; }

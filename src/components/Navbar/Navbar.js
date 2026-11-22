@@ -5,6 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { UserContext } from '../../App';
 import Popup from 'reactjs-popup';
 import { BsPower } from 'react-icons/bs';
+import { AppSwitcher } from '../AppSwitcher';
 import { auth } from '../../firebase/firebase';
 import { ssoSignOut } from '../../firebase/sso';
 
@@ -18,7 +19,7 @@ const Navbar = () => {
             {/* TODO: Menu symbol and Logout */}
             <div className='navbar__left'>
                 <TbMenu2 className='navbar__menu' />
-                <p className='navbar__logo__text'>TasksBoard</p>
+                <p className='navbar__logo__text'>TaskBoard</p>
             </div>
 
             {/* TODO: Search box */}
@@ -32,7 +33,9 @@ const Navbar = () => {
             </div>
 
             
-            {/* TODO: Profile Photoz */}
+            <div className='navbar__switcher' style={{ color: '#d1d3db', marginLeft: 'auto', marginRight: 8 }}>
+                <AppSwitcher current='taskboard' />
+            </div>
 
             <Popup
                 trigger={

@@ -21,12 +21,26 @@ const features = [
     { icon: MdLock, title: 'Private to you', text: 'Your boards are only visible to your account. Nobody else can read them.' },
 ];
 
+const LINKS = [
+    ['More projects', 'https://killerkc12.in/'],
+    ['GitHub', 'https://github.com/killerkc12'],
+    ['LinkedIn', 'https://www.linkedin.com/in/killerkc12/'],
+    ['YouTube', 'https://www.youtube.com/channel/UCAmdURTMLgwCJuiswA9P2Gg/'],
+];
+
+const steps = [
+    ['Sign in with Google', 'One free account for every killerkc12.in app.'],
+    ['Make your lists', 'Start with To do, add whatever lists suit you.'],
+    ['Add and tick off', 'Type a task, press Enter, tick it when done.'],
+];
+
 const Landing = () => (
     <div className='landing'>
         <nav className='landing__nav'>
             <span className='landing__brand'><span className='landing__mark'><BsCheckCircleFill /></span>TaskBoard</span>
             <div className='landing__navlinks'>
                 <a href='#features'>Features</a>
+                <a href='#how'>How it works</a>
                 <button className='landing__btn landing__btn--ghost' onClick={goToLogin}>Sign in</button>
             </div>
         </nav>
@@ -74,6 +88,19 @@ const Landing = () => (
             </div>
         </section>
 
+        <section id='how' className='landing__how'>
+            <h2>Start in under a minute</h2>
+            <div className='landing__steps'>
+                {steps.map(([title, text], i) => (
+                    <div className='landing__step' key={title}>
+                        <span className='landing__num'>{i + 1}</span>
+                        <h3>{title}</h3>
+                        <p>{text}</p>
+                    </div>
+                ))}
+            </div>
+        </section>
+
         <section className='landing__final'>
             <h2>Clear your head. Start a board.</h2>
             <p>Sign in with Google. One account works across all killerkc12.in apps.</p>
@@ -83,8 +110,9 @@ const Landing = () => (
         <footer className='landing__footer'>
             <span>TaskBoard by killerkc12</span>
             <span>
-                <a href='https://killerkc12.in/'>More projects</a>
-                <a href='https://github.com/killerkc12' target='_blank' rel='noopener noreferrer'>GitHub</a>
+                {LINKS.map(([label, href]) => (
+                    <a key={label} href={href} target={href.includes('killerkc12.in') ? undefined : '_blank'} rel='noopener noreferrer'>{label}</a>
+                ))}
             </span>
         </footer>
     </div>
