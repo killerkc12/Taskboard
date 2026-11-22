@@ -5,8 +5,8 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { UserContext } from '../../App';
 import Popup from 'reactjs-popup';
 import { BsPower } from 'react-icons/bs';
-import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase/firebase';
+import { ssoSignOut } from '../../firebase/sso';
 
 const Navbar = () => {
     const {state} = useContext(UserContext);
@@ -58,7 +58,7 @@ const Navbar = () => {
 const MenuOptions = () => {
     const {dispatch} = useContext(UserContext);
     const Logout = async () => {
-        await signOut(auth);
+        await ssoSignOut(auth);
         localStorage.clear();
         dispatch({type:'CLEAR'});
     };

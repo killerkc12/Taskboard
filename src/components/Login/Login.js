@@ -1,27 +1,40 @@
-import { signInWithPopup } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
-import { auth, db, provider } from '../../firebase/firebase';
+import { auth, db } from '../../firebase/firebase';
+import { goToLogin, ssoSignIn } from '../../firebase/sso';
 import GoogleButton from 'react-google-button';
+import Loader from '../Loader/Loader';
 import './Login.css';
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const Login = () => {
     const {dispatch} = useContext(UserContext);
+    const [checking, setChecking] = useState(true);
 
-    const Login = async () => {
-        const result = await signInWithPopup(auth, provider);
-        
-        let currentUser = await GetUser(result.user.uid);
+    // Use the existing Firebase user, or the shared killerkc12.in session if there is one.
+    useEffect(() => {
+        let cancelled = false;
+        (async () => {
+            const fbUser = auth.currentUser || await ssoSignIn(auth);
+            if (cancelled) return;
+            if (fbUser) await FinishLogin(fbUser);
+            else setChecking(false);
+        })();
+        return () => { cancelled = true; };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const FinishLogin = async (fbUser) => {
+        let currentUser = await GetUser(fbUser.uid);
         if(currentUser === undefined){
-            const uid = await AddUser(result.user);
+            const uid = await AddUser(fbUser);
             const board_id = await AddBoard(uid);
             const tasklist_id = await AddTaskList(board_id, uid);
             await SetDefaultValues(uid,board_id,tasklist_id);
-            currentUser = await GetUser(result.user.uid);
+            currentUser = await GetUser(fbUser.uid);
         }
         const user = {
-            uid: result.user.uid,
+            uid: fbUser.uid,
             name: currentUser.name,
             email: currentUser.email,
             photo: currentUser.photo,
@@ -88,7 +101,7 @@ const Login = () => {
             </div>
             {/* TODO: login with google button */}
             <div className='login__button'>
-                <GoogleButton onClick={Login} />
+                {checking ? <Loader /> : <GoogleButton label='Sign in with Google' onClick={goToLogin} />}
             </div>
         </div>
     
