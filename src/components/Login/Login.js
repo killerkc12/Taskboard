@@ -16,7 +16,7 @@ const Login = () => {
         if(currentUser === undefined){
             const uid = await AddUser(result.user);
             const board_id = await AddBoard(uid);
-            const tasklist_id = await AddTaskList(board_id);
+            const tasklist_id = await AddTaskList(board_id, uid);
             await SetDefaultValues(uid,board_id,tasklist_id);
             currentUser = await GetUser(result.user.uid);
         }
@@ -64,9 +64,10 @@ const Login = () => {
         return docRes.id;
     };
 
-    const AddTaskList = async (board_id) => {
+    const AddTaskList = async (board_id, uid) => {
         const docRef = collection(db, 'TaskList');
         const data = {
+            uid: uid,
             board_id: board_id,
             tasklist_name: 'Main tasklist'
         };

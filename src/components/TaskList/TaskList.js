@@ -7,7 +7,7 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import Loader from "../Loader/Loader";
 import Task from "../Task/Task";
 import TaskInput from "../TaskInput/TaskInput";
@@ -29,6 +29,7 @@ const TaskList = (props) => {
   const GetAllTask = async () => {
     const q = query(
       collection(db, "Task"),
+      where("uid", "==", auth.currentUser.uid),
       where("tasklist_id", "==", props.taskList.id)
     );
     onSnapshot(q, (querySnapshot) => {

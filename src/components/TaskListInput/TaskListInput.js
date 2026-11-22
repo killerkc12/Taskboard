@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import './TaskListInput.css';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../../firebase/firebase';
+import { auth, db } from '../../firebase/firebase';
 
 const TaskListInput = ({ board_id }) => {
     const [isInput, setIsInput] = useState(true);
@@ -19,7 +19,8 @@ const TaskListInput = ({ board_id }) => {
         if (taskListNameRef.current.value !== '') {
             const docRef = collection(db, 'TaskList');
             const data = {
-                tasklist_name: taskListNameRef.current.value,
+                uid: auth.currentUser.uid,
+            tasklist_name: taskListNameRef.current.value,
                 board_id: board_id,
                 createdOn: new Date()
             };

@@ -10,7 +10,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import Navbar from "../Navbar/Navbar";
 import TaskListInput from "../TaskListInput/TaskListInput";
 import Loader from "../Loader/Loader";
@@ -27,6 +27,7 @@ const Home = () => {
   const GetTaskList = async () => {
     const q = query(
       collection(db, "TaskList"),
+      where("uid", "==", auth.currentUser.uid),
       where("board_id", "==", state.default_board)
     );
     onSnapshot(q, (querySnapshot) => {

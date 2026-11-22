@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import './TaskInput.css';
 import { AiOutlinePlus, AiFillPlusCircle } from 'react-icons/ai';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../../firebase/firebase';
+import { auth, db } from '../../firebase/firebase';
 
 // eslint-disable-next-line react/prop-types
 const TaskInput = ({ tasklist_id }) => {
@@ -19,6 +19,7 @@ const TaskInput = ({ tasklist_id }) => {
     const AddNewTask = async () => {
         const docRef = collection(db, 'Task');
         const data = {
+            uid: auth.currentUser.uid,
             task_name: taskNameRef.current.value,
             tasklist_id: tasklist_id,
             createdOn: new Date()

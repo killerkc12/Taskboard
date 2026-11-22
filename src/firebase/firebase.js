@@ -7,13 +7,13 @@ import { getFirestore } from 'firebase/firestore';
 // See: https://firebase.google.com/docs/web/learn-more#config-object
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: 'AIzaSyAIHtUjHEezd-C3z6tdBY3I4ZKQu2lomvk',
-    authDomain: 'taskboard-3b4aa.firebaseapp.com',
-    projectId: 'taskboard-3b4aa',
-    storageBucket: 'taskboard-3b4aa.appspot.com',
-    messagingSenderId: '408128814490',
-    appId: '1:408128814490:web:9738fec29b08f5a7fd0e23',
-    measurementId: 'G-1FT668EPSR'
+    apiKey: 'AIzaSyD1Awb-MYTNE15I6qxRmNtc7H3Y7N9ACrg',
+    authDomain: 'killerkc12-build.firebaseapp.com',
+    projectId: 'killerkc12-build',
+    storageBucket: 'killerkc12-build.firebasestorage.app',
+    messagingSenderId: '927295407095',
+    appId: '1:927295407095:web:a651affee57c2c560ce4f2',
+    measurementId: 'G-D4637QXGQ6'
 };
 
 // Initialize Firebase

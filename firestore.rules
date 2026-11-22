@@ -1,0 +1,86 @@
+rules_version = '2';
+// Shared rules for the (default) Firestore database of project killerkc12-build.
+// Used by FinTrack Pro, MasteryTech and Taskboard. The same file lives in all
+// three repos; keep them identical and publish it once in the Firebase console.
+// Anything not matched below is denied.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+
+    // Owner checks for documents that store the owner in a field.
+    function ownsDoc(field) {
+      return signedIn() && resource.data[field] == request.auth.uid;
+    }
+    function ownsNew(field) {
+      return signedIn() && request.resource.data[field] == request.auth.uid;
+    }
+
+    // Shared connection check used by the apps; holds no data.
+    match /test/connection {
+      allow get: if true;
+    }
+
+    // ---------------- FinTrack Pro (owner field: userId) ----------------
+    function fintrackCol(c) {
+      return c in ['accounts', 'transactions', 'cards', 'loans', 'policies'];
+    }
+
+    // ---------------- Taskboard (owner field: uid) ----------------------
+    function taskboardCol(c) {
+      return c in ['Board', 'TaskList', 'Task'];
+    }
+
+    match /{col}/{id} {
+      allow read, delete: if (fintrackCol(col) && ownsDoc('userId'))
+                          || (taskboardCol(col) && ownsDoc('uid'));
+      allow create:       if (fintrackCol(col) && ownsNew('userId'))
+                          || (taskboardCol(col) && ownsNew('uid'));
+      allow update:       if (fintrackCol(col) && ownsDoc('userId') && ownsNew('userId'))
+                          || (taskboardCol(col) && ownsDoc('uid') && ownsNew('uid'));
+    }
+
+    // Taskboard profile, one document per user.
+    match /User/{userId} {
+      allow read, write: if signedIn() && request.auth.uid == userId;
+    }
+
+    // ---------------- MasteryTech ---------------------------------------
+    function isMasteryAdmin() {
+      return signedIn() &&
+             request.auth.token.email == "kiranchavankc12@gmail.com" &&
+             request.auth.token.email_verified == true;
+    }
+
+    function isValidModule(data) {
+      return data.id is string &&
+             data.title is string && data.title.size() > 0 && data.title.size() < 200 &&
+             data.category in ['System Design', 'DBA', 'DSA'] &&
+             data.content is string &&
+             data.order is int &&
+             data.quiz is list;
+    }
+
+    function isValidProgress(data) {
+      return data.uid == request.auth.uid &&
+             data.completedModules is list &&
+             data.quizScores is map;
+    }
+
+    match /modules/{moduleId} {
+      allow read: if signedIn();
+      allow create, update: if isMasteryAdmin() && isValidModule(request.resource.data);
+      allow delete: if isMasteryAdmin();
+    }
+
+    match /userProgress/{userId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow create, update: if signedIn() && request.auth.uid == userId
+                            && isValidProgress(request.resource.data);
+    }
+
+    match /users/{userId} {
+      allow read, write: if signedIn() && request.auth.uid == userId;
+    }
+  }
+}
