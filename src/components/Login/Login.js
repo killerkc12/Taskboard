@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
 import { auth, db } from '../../firebase/firebase';
-import { goToLogin, redirectToLogin, ssoSignIn } from '../../firebase/sso';
-import GoogleButton from 'react-google-button';
+import { ssoSignIn } from '../../firebase/sso';
+import Landing from '../Landing/Landing';
 import Loader from '../Loader/Loader';
 import './Login.css';
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
@@ -18,7 +18,7 @@ const Login = () => {
             const fbUser = auth.currentUser || await ssoSignIn(auth);
             if (cancelled) return;
             if (fbUser) await FinishLogin(fbUser);
-            else if (!redirectToLogin()) setChecking(false); // only if a redirect just failed
+            else setChecking(false); // signed out: show the landing page
         })();
         return () => { cancelled = true; };
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,23 +93,15 @@ const Login = () => {
         const docSnap = await getDoc(docRef);
         return docSnap.data();
     };
-    // Normally visitors never see this: they are sent to auth.killerkc12.in.
-    // The button only shows if they came straight back without a session.
-    return (
-        <div className='login__container'>
-            <div className='login__header'>
-                <h2>TaskBoard</h2>
+    // While checking for a shared session show a spinner; signed-out visitors get the landing page.
+    if (checking) {
+        return (
+            <div className='login__container'>
+                <div className='login__button'><Loader /></div>
             </div>
-            <div className='login__button'>
-                {checking ? <Loader /> : (
-                    <>
-                        <p style={{ color: '#aaa', marginBottom: 16 }}>We couldn't sign you in automatically.</p>
-                        <GoogleButton label='Sign in' onClick={goToLogin} />
-                    </>
-                )}
-            </div>
-        </div>
-    );
+        );
+    }
+    return <Landing />;
 };
 
 export default Login;
