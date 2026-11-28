@@ -31,6 +31,7 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
             // '/' must not be answered from the precache, or the NetworkFirst page rule never runs.
             directoryIndex: '__no_directory_index__',
+            clientsClaim: true, // a new version takes control of open pages once it activates
             navigateFallback: null, // vite-plugin-pwa adds one by default; pages use the NetworkFirst rule below
         cleanupOutdatedCaches: true,
         runtimeCaching: [
