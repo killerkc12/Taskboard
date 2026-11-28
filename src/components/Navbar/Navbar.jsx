@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './Navbar.css';
 import { TbMenu2 } from 'react-icons/tb';
-import { AiOutlineSearch } from 'react-icons/ai';
+import Search from './Search';
 import { UserContext } from '../../App';
 import Popup from 'reactjs-popup';
 import { BsPower } from 'react-icons/bs';
@@ -10,7 +10,7 @@ import { auth } from '../../firebase/firebase';
 import { ssoSignOut } from '@killerkc12/shared';
 
 // eslint-disable-next-line react/prop-types
-const Navbar = ({ onMenu }) => {
+const Navbar = ({ onMenu, boards = [], onSwitch }) => {
     const {state} = useContext(UserContext);
 
     
@@ -25,17 +25,8 @@ const Navbar = ({ onMenu }) => {
                 <p className='navbar__logo__text'>TaskBoard</p>
             </div>
 
-            {/* TODO: Search box */}
-            <div className='navbar__middle'>
-                <div className="search__logo_container">
-                    <AiOutlineSearch className='search__logo' />
-                </div>
-                <div className="input__container">
-                    <input type="text" placeholder='Search' className='search__input' />
-                </div>
-            </div>
+            <Search boards={boards} onSwitch={onSwitch} />
 
-            
             <div className='navbar__switcher' style={{ color: '#d1d3db', marginLeft: 'auto', marginRight: 8 }}>
                 <AppSwitcher current='taskboard' />
             </div>

@@ -46,6 +46,7 @@ const Task = (props) => {
   return (
     <div
       ref={setNodeRef}
+      id={`task-${props.task.id}`}
       className={`task__container${isDragging ? " is-dragging" : ""}`}
       onMouseMove={() => setHoverCompleted(true)}
       onMouseOut={() => setHoverCompleted(false)}

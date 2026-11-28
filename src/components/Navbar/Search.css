@@ -1,0 +1,37 @@
+/* Search dropdown (px units: the app sets html { font-size: 62.5% }) */
+.search .input__container { position: relative; flex: 1; display: flex; align-items: center; background: rgb(41, 42, 47); border-radius: 0 0.8rem 0.8rem 0; height: 4rem; padding-right: 8px; }
+.search .search__input { padding-right: 4px; }
+.search .search__input::-webkit-search-cancel-button { display: none; }
+.search:focus-within .search__logo_container, .search:focus-within .input__container { background: #33353c; }
+.search__hint { font: 600 12px Inter, system-ui, sans-serif; color: #8a8d99; border: 1px solid #4a4c56; border-radius: 6px; padding: 1px 7px; }
+.search__clear { display: grid; place-items: center; width: 28px; height: 28px; border: 0; border-radius: 8px; background: transparent; color: #b8bac4; font-size: 18px; cursor: pointer; }
+.search__clear:hover { background: #45474f; color: #fff; }
+
+.search__panel { position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 800; background: #2a2c33; border: 1px solid #3a3c45; border-radius: 14px; padding: 6px; box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6); max-height: min(70vh, 480px); overflow-y: auto; }
+.search__empty { margin: 0; padding: 14px 12px; color: #8a8d99; font-size: 14px; }
+.search__result { width: 100%; display: flex; flex-direction: column; gap: 4px; padding: 9px 12px; border: 0; border-radius: 10px; background: transparent; color: #e7e8ec; font: inherit; text-align: left; cursor: pointer; }
+.search__result.is-active { background: #3a3c45; }
+.search__name { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #fff; min-width: 0; }
+.search__text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search__name mark { background: rgba(38, 132, 252, 0.3); color: #fff; border-radius: 3px; padding: 0 1px; }
+.search__result.is-done .search__text { color: #a2a5b0; text-decoration: line-through; }
+.search__done-icon { color: #2684fc; flex: none; font-size: 15px; }
+.search__meta { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.search__where { font-size: 12px; color: #8a8d99; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search__chip { flex: none; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; }
+.search__chip--overdue { background: rgba(255, 99, 88, 0.16); color: #ff8a7a; }
+.search__chip--today { background: rgba(255, 193, 7, 0.16); color: #ffcf4d; }
+.search__chip--soon, .search__chip--later { background: rgba(38, 132, 252, 0.16); color: #7db4ff; }
+.search__chip--done { background: rgba(255, 255, 255, 0.08); color: #a2a5b0; }
+
+/* Flash a task when you jump to it from search */
+@keyframes task-flash { 0%, 100% { box-shadow: 0 0 0 0 rgba(38, 132, 252, 0); } 20%, 60% { box-shadow: 0 0 0 3px rgba(38, 132, 252, 0.9); } }
+.task__container.is-flash { animation: task-flash 2s ease; }
+@media (prefers-reduced-motion: reduce) { .task__container.is-flash { animation: none; outline: 3px solid #2684fc; } }
+/* Keep the header (and this dropdown) above the board content */
+.navbar__container { z-index: 700; }
+/* Phones: the search box is narrow, so the dropdown spans the screen under the header */
+@media (max-width: 640px) {
+  .search__panel { position: fixed; top: 60px; left: 8px; right: 8px; }
+}
+@media (max-width: 480px) { .search__hint { display: none; } .search .input__container { height: 3rem; } }

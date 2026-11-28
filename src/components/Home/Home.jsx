@@ -76,7 +76,7 @@ const Home = () => {
 
   return (
     <div className="main__container">
-      {state?.uid && <Navbar onMenu={() => setMenuOpen(true)} />}
+      {state?.uid && <Navbar onMenu={() => setMenuOpen(true)} boards={boards} onSwitch={switchBoard} />}
       <Sidebar
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
