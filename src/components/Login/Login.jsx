@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
 import { auth, db } from '../../firebase/firebase';
-import { ssoSignIn } from '../../firebase/sso';
+import { ssoSignIn } from '@killerkc12/shared';
 import Landing from '../Landing/Landing';
 import Loader from '../Loader/Loader';
 import './Login.css';

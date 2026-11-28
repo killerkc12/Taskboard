@@ -1,7 +1,7 @@
 import React from 'react';
 import { BsCheckCircleFill, BsCircle, BsLightningChargeFill, BsArrowRight } from 'react-icons/bs';
 import { MdViewColumn, MdCheckCircle, MdSync, MdDevices, MdLock } from 'react-icons/md';
-import { goToLogin } from '../../firebase/sso';
+import { goToLogin } from '@killerkc12/shared';
 import './Landing.css';
 
 // Public marketing page for signed-out visitors. Sign-in buttons go to auth.killerkc12.in.

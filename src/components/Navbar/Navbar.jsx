@@ -5,9 +5,9 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { UserContext } from '../../App';
 import Popup from 'reactjs-popup';
 import { BsPower } from 'react-icons/bs';
-import { AppSwitcher } from '../AppSwitcher';
+import { AppSwitcher } from '@killerkc12/shared';
 import { auth } from '../../firebase/firebase';
-import { ssoSignOut } from '../../firebase/sso';
+import { ssoSignOut } from '@killerkc12/shared';
 
 const Navbar = () => {
     const {state} = useContext(UserContext);

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@killerkc12/shared": "https://codeload.github.com/killerkc12/killerkc12-shared/tar.gz/a5aa0fb6a8d54da8a82cabb4f8858925cb8c028a",
     "firebase": "12.19.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
