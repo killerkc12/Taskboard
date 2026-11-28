@@ -11,7 +11,7 @@ const day = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return d.
 __seed({
   User: { u1: { name: 'Kiran', default_board: 'b1' } },
   Board: { b1: { board_name: 'Main board', uid: 'u1', createdOn: { seconds: 1 } }, b2: { board_name: 'Side project', uid: 'u1', createdOn: { seconds: 2 } } },
-  TaskList: { l1: { uid: 'u1', board_id: 'b1', tasklist_name: 'To do', createdOn: 1 }, l2: { uid: 'u1', board_id: 'b1', tasklist_name: 'This week', createdOn: 2 }, l3: { uid: 'u1', board_id: 'b2', tasklist_name: 'Ideas', createdOn: 1 } },
+  TaskList: { l1: { uid: 'u1', board_id: 'b1', tasklist_name: 'To do', createdOn: 1, color: '#e3b916' }, l2: { uid: 'u1', board_id: 'b1', tasklist_name: 'This week', createdOn: 2 }, l3: { uid: 'u1', board_id: 'b2', tasklist_name: 'Ideas', createdOn: 1 } },
   Task: {
     t1: { uid: 'u1', tasklist_id: 'l1', task_name: 'Renew passport', createdOn: { seconds: 3 } },
     t2: { uid: 'u1', tasklist_id: 'l1', task_name: 'Pay electricity bill', due_date: day(-2), createdOn: { seconds: 2 } },

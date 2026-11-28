@@ -52,12 +52,12 @@
 .tasklist_completed {
   font-size: 1.6rem;
   font-weight: 500;
-  color: gray;
+  color: var(--tl-soft);
 }
 
 .tasklist_completed_container > .down_arrow,
 .up_arrow {
-  color: gray;
+  color: var(--tl-soft);
   font-size: 1.6rem;
   font-weight: 500;
 }
@@ -86,3 +86,22 @@
 .menu--list .menu-item { border-radius: 0.6rem; }
 .menu--list .menu-item:hover { background: #45474f; color: #fff; }
 .menu--list .menu-item--danger:hover { color: #ff8a7a; }
+
+/* ---- Colours that adapt to the list background ---- */
+.tasklist__container { --tl-ink: #fff; --tl-soft: #9a9daa; --tl-hover: rgba(255, 255, 255, 0.07); color: var(--tl-ink); }
+.tasklist__container.is-light { --tl-ink: #1a1b1f; --tl-soft: rgba(0, 0, 0, 0.55); --tl-hover: rgba(0, 0, 0, 0.08); }
+.tasklist__container .task__container,
+.tasklist__container .task__input_container { margin: 0.2rem 0.6rem; border-radius: 0.9rem; transition: background-color 0.12s; }
+.tasklist__container .task__handle { color: var(--tl-soft); }
+.tasklist__container .task__options { color: var(--tl-ink); border-radius: 0.6rem; }
+.tasklist__container .task__options:hover { background: var(--tl-hover); }
+.tasklist__container.is-light .task__icon__done,
+.tasklist__container.is-light .task__button,
+.tasklist__container.is-light .task_button_text { color: #1652b8; }
+.tasklist__container.is-light .task__due--overdue { background: rgba(180, 35, 24, 0.14); color: #a3190f; }
+.tasklist__container.is-light .task__due--today { background: rgba(0, 0, 0, 0.1); color: #6b4300; }
+.tasklist__container.is-light .task__due--soon { background: rgba(22, 82, 184, 0.13); color: #1652b8; }
+.tasklist__container.is-light .task__due--later,
+.tasklist__container.is-light .task__due--done { background: rgba(0, 0, 0, 0.08); color: rgba(0, 0, 0, 0.62); }
+.tasklist__container.is-light input { color: var(--tl-ink); }
+.tasklist__container.is-light input::placeholder { color: var(--tl-soft); }

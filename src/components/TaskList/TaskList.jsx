@@ -24,6 +24,16 @@ import { doc } from "firebase/firestore";
 import { MdBrush, MdCheck, MdColorize } from "react-icons/md";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
+// True for light list colours (e.g. yellow), where dark text reads better than white.
+const isLightColor = (hex) => {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || "");
+  if (!m) return false;
+  const n = parseInt(m[1], 16);
+  const lin = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
+  const L = 0.2126 * lin(n >> 16) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255);
+  return L > 0.35;
+};
+
 const TaskList = (props) => {
   const [task, setTask] = useState([]);
   const [completedTask, setCompletedTask] = useState([]);
@@ -57,7 +67,7 @@ const TaskList = (props) => {
   return (
     <div
       ref={setNodeRef}
-      className={`tasklist__container${isOver ? " is-drop-target" : ""}`}
+      className={`tasklist__container${isOver ? " is-drop-target" : ""}${isLightColor(props.taskList.color) ? " is-light" : ""}`}
       style={{ backgroundColor: props.taskList.color }}
     >
       {/* TODO: tasklist header */}

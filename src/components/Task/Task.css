@@ -14,7 +14,7 @@
 }
 
 .task__container:hover {
-  background-color: #3a3c45;
+  background-color: var(--tl-hover);
 }
 
 .task__name {
@@ -24,7 +24,7 @@
 .task__name__completed {
   margin-left: 1rem;
   text-decoration: line-through;
-  color: gray;
+  color: var(--tl-soft);
 }
 
 .task__icon__circle {

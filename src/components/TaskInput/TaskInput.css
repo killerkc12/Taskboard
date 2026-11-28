@@ -4,7 +4,7 @@
 }
 
 .task__input_container:hover {
-  background-color: #3a3c45;
+  background-color: var(--tl-hover);
 }
 
 .task__inputbox__container {
