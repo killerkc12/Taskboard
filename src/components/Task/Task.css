@@ -87,6 +87,19 @@
 .task__due--today { background: rgba(255, 193, 7, 0.16); color: #ffcf4d; }
 .task__due--soon { background: rgba(38, 132, 252, 0.16); color: #7db4ff; }
 .task__due--later, .task__due--done { background: rgba(255, 255, 255, 0.07); color: #a2a5b0; }
-.menu-item--date input { margin-left: auto; background: #2a2c33; color: #fff; border: 1px solid #4a4c56; border-radius: 0.6rem; padding: 0.2rem 0.4rem; font: inherit; color-scheme: dark; }
 
 .task__container > .task__start { flex: 1; min-width: 0; }
+
+/* ---- Task menu with due date ---- */
+.menu--task { width: 25rem; gap: 0.2rem; }
+.menu-due { padding: 0.6rem 0.6rem 1rem; margin-bottom: 0.4rem; border-bottom: 1px solid #4a4c56; }
+.menu-due__title { display: flex; align-items: center; margin: 0 0 0.8rem; font-size: 1.4rem; font-weight: 600; color: #c9cbd3; }
+.menu-due__quick { display: flex; gap: 0.6rem; margin-bottom: 0.8rem; }
+.menu-due__chip { flex: 1; height: 3rem; border: 1px solid #4a4c56; border-radius: 0.8rem; background: #2a2c33; color: #e7e8ec; font: inherit; font-size: 1.3rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.menu-due__chip:hover { border-color: #2684fc; color: #fff; }
+.menu-due__chip.is-active { background: #2684fc; border-color: #2684fc; color: #fff; }
+.menu-due__input { width: 100%; height: 3.4rem; box-sizing: border-box; border: 1px solid #4a4c56; border-radius: 0.8rem; background: #2a2c33; color: #fff; padding: 0 1rem; font: inherit; font-size: 1.4rem; color-scheme: dark; cursor: pointer; }
+.menu-due__input:focus-visible, .menu-due__chip:focus-visible { outline: 2px solid #6aa8ff; outline-offset: 1px; }
+.menu--task .menu-item { border-radius: 0.6rem; }
+.menu--task .menu-item:hover { background: #45474f; color: #fff; }
+.menu-item--danger:hover { color: #ff8a7a !important; }

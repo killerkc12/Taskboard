@@ -8,7 +8,7 @@ import Popup from "reactjs-popup";
 import { deleteDoc, deleteField, doc, updateDoc } from "firebase/firestore";
 import { useDraggable } from "@dnd-kit/core";
 import { db } from "../../firebase/firebase";
-import { describeDue } from "../../utils/dueDate";
+import { describeDue, toKey } from "../../utils/dueDate";
 
 const DeleteTask = async (id) => {
   await deleteDoc(doc(db, "Task", id));
@@ -119,25 +119,49 @@ const Task = (props) => {
   );
 };
 
+// Quick picks for the due date, as local YYYY-MM-DD.
+const inDays = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return toKey(d); };
+const QUICK = [
+  { label: "Today", value: () => inDays(0) },
+  { label: "Tomorrow", value: () => inDays(1) },
+  { label: "Next week", value: () => inDays(7) },
+];
+
 const MenuOptions = ({ task }) => {
   return (
-    <div className="menu">
-      <label className="menu-item menu-item--date">
-        <MdEvent className="menu-icon" />
-        Due date
+    <div className="menu menu--task">
+      <div className="menu-due">
+        <p className="menu-due__title"><MdEvent className="menu-icon" />Due date</p>
+        <div className="menu-due__quick">
+          {QUICK.map((q) => {
+            const value = q.value();
+            return (
+              <button
+                key={q.label}
+                type="button"
+                className={`menu-due__chip${task.due_date === value ? " is-active" : ""}`}
+                onClick={() => SetDueDate(task.id, value)}
+              >
+                {q.label}
+              </button>
+            );
+          })}
+        </div>
         <input
+          className="menu-due__input"
           type="date"
+          aria-label="Pick a due date"
           value={task.due_date || ""}
           onChange={(e) => SetDueDate(task.id, e.target.value)}
         />
-      </label>
+      </div>
       {task.due_date && (
         <div className="menu-item" onClick={() => SetDueDate(task.id, "")}>
           <MdEventBusy className="menu-icon" />
           Clear due date
         </div>
       )}
-      <div className="menu-item" onClick={() => DeleteTask(task.id)}>
+      <div className="menu-item menu-item--danger" onClick={() => DeleteTask(task.id)}>
         <MdDelete className="menu-icon" />
         Delete
       </div>
