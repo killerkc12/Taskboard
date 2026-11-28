@@ -9,6 +9,7 @@ import Navbar from "../Navbar/Navbar";
 import TaskListInput from "../TaskListInput/TaskListInput";
 import Loader from "../Loader/Loader";
 import BoardPicker from "../BoardPicker/BoardPicker";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Home = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -17,6 +18,7 @@ const Home = () => {
   const [taskList, setTaskList] = useState([]);
   const [isTaskListLoading, setTaskListLoading] = useState(true);
   const [dragging, setDragging] = useState(null); // task being dragged, for the overlay
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // All of this user's boards.
   useEffect(() => {
@@ -74,7 +76,14 @@ const Home = () => {
 
   return (
     <div className="main__container">
-      {state?.uid && <Navbar />}
+      {state?.uid && <Navbar onMenu={() => setMenuOpen(true)} />}
+      <Sidebar
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        boards={boards}
+        currentId={boardId}
+        onSwitch={switchBoard}
+      />
       <div className="home__container">
         <div className="board_container">
           <BoardPicker

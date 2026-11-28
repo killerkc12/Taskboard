@@ -22,7 +22,7 @@ __seed({
 window.__store = __store;
 
 function Harness() {
-  const [state, dispatch] = useReducer(reducer, { uid: 'u1', name: 'Kiran', photo: '', default_board: 'b1' });
+  const [state, dispatch] = useReducer(reducer, { uid: 'u1', name: 'Kiran Chavan', email: 'kiran@example.com', photo: '', default_board: 'b1' });
   return <UserContext.Provider value={{ state, dispatch }}><Home /></UserContext.Provider>;
 }
 createRoot(document.getElementById('root')).render(<Harness />);

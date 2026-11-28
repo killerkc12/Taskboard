@@ -6,6 +6,15 @@ import { MdAdd, MdCheck, MdDelete, MdEdit } from 'react-icons/md';
 import { auth, db } from '../../firebase/firebase';
 import './BoardPicker.css';
 
+/** Creates a board with a starter "To do" list and returns its id. */
+export async function createBoard(board_name) {
+    const uid = auth.currentUser.uid;
+    const board = await addDoc(collection(db, 'Board'), { board_name, uid, createdOn: new Date() });
+    // Every new board starts with one list so there is somewhere to add tasks.
+    await addDoc(collection(db, 'TaskList'), { uid, board_id: board.id, tasklist_name: 'To do', createdOn: new Date() });
+    return board.id;
+}
+
 // Header control for boards: switch, create, rename, delete.
 const BoardPicker = ({ boards, current, onSwitch }) => {
     const [open, setOpen] = useState(false);
@@ -29,11 +38,9 @@ const BoardPicker = ({ boards, current, onSwitch }) => {
         const board_name = name.trim();
         if (!board_name) return;
         setBusy(true);
-        const board = await addDoc(collection(db, 'Board'), { board_name, uid: uid(), createdOn: new Date() });
-        // Every new board starts with one list so there is somewhere to add tasks.
-        await addDoc(collection(db, 'TaskList'), { uid: uid(), board_id: board.id, tasklist_name: 'To do', createdOn: new Date() });
+        const id = await createBoard(board_name);
         setBusy(false); setMode(null); setName(''); setOpen(false);
-        onSwitch(board.id);
+        onSwitch(id);
     };
 
     const renameBoard = async () => {

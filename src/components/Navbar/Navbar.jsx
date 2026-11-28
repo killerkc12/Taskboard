@@ -9,7 +9,8 @@ import { AppSwitcher } from '@killerkc12/shared';
 import { auth } from '../../firebase/firebase';
 import { ssoSignOut } from '@killerkc12/shared';
 
-const Navbar = () => {
+// eslint-disable-next-line react/prop-types
+const Navbar = ({ onMenu }) => {
     const {state} = useContext(UserContext);
 
     
@@ -18,7 +19,9 @@ const Navbar = () => {
         <div className='navbar__container'>
             {/* TODO: Menu symbol and Logout */}
             <div className='navbar__left'>
-                <TbMenu2 className='navbar__menu' />
+                <button type='button' className='navbar__menu-btn' onClick={onMenu} aria-label='Open menu'>
+                    <TbMenu2 className='navbar__menu' />
+                </button>
                 <p className='navbar__logo__text'>TaskBoard</p>
             </div>
 
