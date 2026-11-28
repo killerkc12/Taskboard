@@ -34,7 +34,7 @@ const BoardPicker = ({ boards, current, onSwitch }) => {
 
     const uid = () => auth.currentUser.uid;
 
-    const createBoard = async () => {
+    const handleCreate = async () => {
         const board_name = name.trim();
         if (!board_name) return;
         setBusy(true);
@@ -94,8 +94,8 @@ const BoardPicker = ({ boards, current, onSwitch }) => {
                     {mode === 'new' ? (
                         <div className="boardpicker__form">
                             <input autoFocus placeholder="Board name" value={name} maxLength={60}
-                                onChange={(e) => setName(e.target.value)} onKeyDown={(e) => onKey(e, createBoard)} />
-                            <button type="button" disabled={busy || !name.trim()} onClick={createBoard}>Create</button>
+                                onChange={(e) => setName(e.target.value)} onKeyDown={(e) => onKey(e, handleCreate)} />
+                            <button type="button" disabled={busy || !name.trim()} onClick={handleCreate}>Create</button>
                         </div>
                     ) : (
                         <button type="button" className="boardpicker__item" onClick={() => { setMode('new'); setName(''); }}>
