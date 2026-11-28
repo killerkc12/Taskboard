@@ -1,6 +1,6 @@
 {
-  "short_name": "Taskboard",
-  "name": "Create your task and manage it",
+  "short_name": "TaskBoard",
+  "name": "TaskBoard \u00b7 Simple task lists",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#1f2024",
+  "background_color": "#1f2024"
 }
