@@ -69,3 +69,24 @@
 .menu-item:hover {
   color: #2980b9;
 }
+
+/* ---- Drag and drop ---- */
+.task__container { position: relative; }
+.task__handle { display: flex; align-items: center; margin-left: -1rem; margin-right: 0.2rem; color: #6d707b; font-size: 1.8rem; cursor: grab; touch-action: none; opacity: 0; transition: opacity 0.15s; }
+.task__container:hover .task__handle, .task__handle:focus-visible { opacity: 1; }
+.task__handle:active { cursor: grabbing; }
+@media (hover: none) { .task__handle { opacity: 0.7; } }
+.task__container.is-dragging { opacity: 0.35; }
+.task__drag-overlay { background: #3a3c45; color: #fff; padding: 1rem 1.5rem; border-radius: 0.8rem; font-size: 1.5rem; box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.6); cursor: grabbing; max-width: 28rem; }
+
+/* ---- Due dates ---- */
+.task__text { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+.task__due { display: inline-flex; align-items: center; gap: 0.4rem; align-self: flex-start; font-size: 1.2rem; font-weight: 600; padding: 0.2rem 0.7rem; border-radius: 999px; white-space: nowrap; }
+.task__due svg { font-size: 1.3rem; }
+.task__due--overdue { background: rgba(255, 99, 88, 0.16); color: #ff8a7a; }
+.task__due--today { background: rgba(255, 193, 7, 0.16); color: #ffcf4d; }
+.task__due--soon { background: rgba(38, 132, 252, 0.16); color: #7db4ff; }
+.task__due--later, .task__due--done { background: rgba(255, 255, 255, 0.07); color: #a2a5b0; }
+.menu-item--date input { margin-left: auto; background: #2a2c33; color: #fff; border: 1px solid #4a4c56; border-radius: 0.6rem; padding: 0.2rem 0.4rem; font: inherit; color-scheme: dark; }
+
+.task__container > .task__start { flex: 1; min-width: 0; }

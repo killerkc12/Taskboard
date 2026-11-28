@@ -1,0 +1,23 @@
+// In-memory stand-in for firebase/firestore, enough for TaskBoard's calls. Test only.
+const store = {}; const listeners = new Set(); let seq = 0;
+const DELETE = { __delete: true };
+const coll = (n) => (store[n] ||= new Map());
+const match = (q, d) => q.filters.every((f) => d[f.f] === f.v);
+const snap = (q) => { const docs = [...coll(q.coll)].filter(([, d]) => match(q, d)).map(([id, d]) => ({ id, data: () => ({ ...d }), ref: { coll: q.coll, id } })); return { docs, empty: !docs.length }; };
+const notify = () => queueMicrotask(() => listeners.forEach((l) => l.cb(snap(l.q))));
+export const getFirestore = () => ({});
+export const collection = (_db, name) => ({ coll: name, filters: [] });
+export const doc = (_db, name, id) => ({ coll: name, id });
+export const where = (f, _op, v) => ({ f, v });
+export const query = (c, ...filters) => ({ coll: c.coll, filters });
+export const deleteField = () => DELETE;
+export const onSnapshot = (q, cb) => { const l = { q, cb }; listeners.add(l); queueMicrotask(() => cb(snap(q))); return () => listeners.delete(l); };
+export const getDocs = async (q) => snap(q);
+export const getDoc = async (r) => { const d = coll(r.coll).get(r.id); return { exists: () => !!d, data: () => d && { ...d } }; };
+export const addDoc = async (c, data) => { const id = `${c.coll.toLowerCase()}_${++seq}`; coll(c.coll).set(id, { ...data }); notify(); return { id }; };
+export const setDoc = async (r, data, opts) => { coll(r.coll).set(r.id, opts?.merge ? { ...(coll(r.coll).get(r.id) || {}), ...data } : { ...data }); notify(); };
+export const updateDoc = async (r, patch) => { const d = { ...coll(r.coll).get(r.id) }; for (const [k, v] of Object.entries(patch)) { if (v === DELETE) delete d[k]; else d[k] = v; } coll(r.coll).set(r.id, d); notify(); };
+export const deleteDoc = async (r) => { coll(r.coll).delete(r.id); notify(); };
+export const writeBatch = () => { const ops = []; return { delete: (r) => ops.push(r), commit: async () => { ops.forEach((r) => coll(r.coll).delete(r.id)); notify(); } }; };
+export const __seed = (data) => { for (const [c, docs] of Object.entries(data)) for (const [id, d] of Object.entries(docs)) coll(c).set(id, d); };
+export const __store = store;

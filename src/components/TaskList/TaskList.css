@@ -67,3 +67,7 @@
     min-width: 25rem;
   }
 }
+
+/* Highlight a list while a task is dragged over it */
+.tasklist__container { transition: box-shadow 0.15s, outline-color 0.15s; outline: 2px dashed transparent; outline-offset: 3px; }
+.tasklist__container.is-drop-target { outline-color: #2684fc; box-shadow: 0 0 0 4px rgba(38, 132, 252, 0.15); }

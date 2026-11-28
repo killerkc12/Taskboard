@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 import {
   collection,
+  getDocs,
   onSnapshot,
   query,
   updateDoc,
   where,
+  writeBatch,
 } from "firebase/firestore";
+import { useDroppable } from "@dnd-kit/core";
+import { sortOpenTasks } from "../../utils/dueDate";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../firebase/firebase";
 import Loader from "../Loader/Loader";
@@ -15,24 +19,26 @@ import "./TaskList.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Popup from "reactjs-popup";
 import { MdDelete } from "react-icons/md";
-import { deleteDoc, doc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import { MdBrush } from "react-icons/md";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const TaskList = (props) => {
   const [task, setTask] = useState([]);
   const [completedTask, setCompletedTask] = useState([]);
-  const [isTask, setIsTask] = useState(false);
   const [isTaskLoading, setTaskLoading] = useState(true);
   const [isCompletedTaskCollapsed, setCompletedTaskCollapsed] = useState(false);
+  // The whole list is a drop target for tasks dragged from other lists.
+  const { setNodeRef, isOver } = useDroppable({ id: props.taskList.id });
 
-  const GetAllTask = async () => {
+  // Live tasks for this list; the listener is removed when the list goes away.
+  useEffect(() => {
     const q = query(
       collection(db, "Task"),
       where("uid", "==", auth.currentUser.uid),
       where("tasklist_id", "==", props.taskList.id)
     );
-    onSnapshot(q, (querySnapshot) => {
+    return onSnapshot(q, (querySnapshot) => {
       const list = [];
       const completedList = [];
       querySnapshot.docs.forEach((doc) => {
@@ -40,21 +46,17 @@ const TaskList = (props) => {
           completedList.push({ id: doc.id, ...doc.data() });
         else list.push({ id: doc.id, ...doc.data() });
       });
-      list.sort((a, b) => (a.createdOn > b.createdOn ? -1 : 1));
+      list.sort(sortOpenTasks);
       setTask(list);
       setCompletedTask(completedList);
       setTaskLoading(false);
     });
-    setIsTask(true);
-  };
-
-  useEffect(() => {
-    if (!isTask) GetAllTask();
-  });
+  }, [props.taskList.id]);
 
   return (
     <div
-      className="tasklist__container"
+      ref={setNodeRef}
+      className={`tasklist__container${isOver ? " is-drop-target" : ""}`}
       style={{ backgroundColor: props.taskList.color }}
     >
       {/* TODO: tasklist header */}
@@ -87,13 +89,11 @@ const TaskList = (props) => {
         ) : (
           <>
             <TaskInput tasklist_id={props.taskList.id} />
-            {task?.map((item, index) => {
-              return (
-                <div key={index}>
-                  <Task task={item} />
-                </div>
-              );
-            })}
+            {task?.map((item) => (
+              <div key={item.id}>
+                <Task task={item} />
+              </div>
+            ))}
             <div
               className="tasklist_completed_container"
               onClick={() =>
@@ -110,13 +110,11 @@ const TaskList = (props) => {
               )}
             </div>
             {isCompletedTaskCollapsed &&
-              completedTask?.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <Task task={item} isCompleted={true} />
-                  </div>
-                );
-              })}
+              completedTask?.map((item) => (
+                <div key={item.id}>
+                  <Task task={item} isCompleted={true} />
+                </div>
+              ))}
           </>
         )}
       </div>
@@ -125,8 +123,14 @@ const TaskList = (props) => {
 };
 
 const MenuOptions = (props) => {
+  // Deleting a list also deletes its tasks, so none are left behind.
   const DeleteTask = async (id) => {
-    await deleteDoc(doc(db, "TaskList", id));
+    if (!window.confirm(`Delete "${props.taskList.tasklist_name}" and its tasks?`)) return;
+    const tasks = await getDocs(query(collection(db, "Task"), where("uid", "==", auth.currentUser.uid), where("tasklist_id", "==", id)));
+    const batch = writeBatch(db);
+    tasks.docs.forEach((t) => batch.delete(t.ref));
+    batch.delete(doc(db, "TaskList", id));
+    await batch.commit();
   };
 
   const SetListColor = async (color) => {

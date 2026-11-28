@@ -71,7 +71,8 @@ const Login = () => {
         const docRef = collection(db, 'Board');
         const data = {
             board_name: 'Main board',
-            uid: uid
+            uid: uid,
+            createdOn: new Date()
         };
         const docRes = await addDoc(docRef, data);
         return docRes.id;
@@ -82,7 +83,8 @@ const Login = () => {
         const data = {
             uid: uid,
             board_id: board_id,
-            tasklist_name: 'Main tasklist'
+            tasklist_name: 'Main tasklist',
+            createdOn: new Date()
         };
         const docRes = await addDoc(docRef, data);
         return docRes.id;

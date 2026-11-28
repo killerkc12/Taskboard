@@ -1,0 +1,20 @@
+.boardpicker { position: relative; }
+.boardpicker__current { display: flex; align-items: center; gap: 8px; background: transparent; border: 0; color: inherit; cursor: pointer; padding: 6px 10px; margin-left: -10px; border-radius: 10px; font-family: inherit; }
+.boardpicker__current:hover { background: rgba(255, 255, 255, 0.06); }
+.boardpicker__current h3 { margin: 0; }
+.boardpicker__caret { font-size: 18px; transition: transform 0.15s; }
+.boardpicker__caret.is-open { transform: rotate(180deg); }
+.boardpicker__menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 50; width: 280px; max-width: calc(100vw - 32px); background: #2a2c33; border: 1px solid #3a3c45; border-radius: 14px; padding: 8px; box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6); font-size: 15px; }
+.boardpicker__label { margin: 4px 10px 6px; font-size: 12px; font-weight: 600; color: #8a8d99; }
+.boardpicker__item { width: 100%; display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 10px; border: 0; border-radius: 10px; background: transparent; color: #e7e8ec; font: inherit; text-align: left; cursor: pointer; }
+.boardpicker__item span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.boardpicker__item:hover:not(:disabled) { background: #3a3c45; }
+.boardpicker__item:disabled { opacity: 0.45; cursor: not-allowed; }
+.boardpicker__check { color: #6aa8ff; font-size: 18px; }
+.boardpicker__danger { color: #ff8a7a; }
+.boardpicker__divider { height: 1px; background: #3a3c45; margin: 6px 4px; }
+.boardpicker__form { display: flex; gap: 6px; padding: 4px; }
+.boardpicker__form input { flex: 1; min-width: 0; height: 38px; border-radius: 8px; border: 1px solid #4a4c56; background: #1f2024; color: #fff; padding: 0 10px; font: inherit; }
+.boardpicker__form button { height: 38px; padding: 0 12px; border: 0; border-radius: 8px; background: #2684fc; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.boardpicker__form button:disabled { opacity: 0.5; cursor: default; }
+.boardpicker :focus-visible { outline: 2px solid #6aa8ff; outline-offset: 2px; }
