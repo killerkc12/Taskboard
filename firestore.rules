@@ -24,7 +24,8 @@ service cloud.firestore {
     // ---------------- FinTrack Pro (owner field: userId) ----------------
     function fintrackCol(c) {
       return c in ['accounts', 'transactions', 'cards', 'loans', 'policies', 'categories',
-                   'budgets', 'goals', 'planned', 'debts', 'feedback'];
+                   'budgets', 'goals', 'planned', 'debts', 'feedback', 'templates',
+                   'rules', 'settings'];
     }
 
     // ---------------- Taskboard (owner field: uid) ----------------------
