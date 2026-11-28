@@ -71,3 +71,18 @@
 /* Highlight a list while a task is dragged over it */
 .tasklist__container { transition: box-shadow 0.15s, outline-color 0.15s; outline: 2px dashed transparent; outline-offset: 3px; }
 .tasklist__container.is-drop-target { outline-color: #2684fc; box-shadow: 0 0 0 4px rgba(38, 132, 252, 0.15); }
+
+/* ---- List menu: colour swatches ---- */
+.menu--list { width: 25rem; gap: 0.2rem; }
+.menu-color__title { display: flex; align-items: center; margin: 0.2rem 0.6rem 0.8rem; font-size: 1.4rem; font-weight: 600; color: #c9cbd3; }
+.menu-color__grid { display: grid; grid-template-columns: repeat(7, 2.8rem); justify-content: space-between; row-gap: 0.8rem; padding: 0 0.6rem 1rem; margin-bottom: 0.4rem; border-bottom: 1px solid #4a4c56; }
+.menu-color__swatch { position: relative; width: 2.8rem; height: 2.8rem; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.12); padding: 0; display: grid; place-items: center; color: #fff; font-size: 1.6rem; cursor: pointer; transition: transform 0.1s; }
+.menu-color__swatch:hover { transform: scale(1.12); }
+.menu-color__swatch.is-active { border-color: #fff; }
+.menu-color__swatch:focus-visible, .menu-color__swatch:focus-within { outline: 2px solid #6aa8ff; outline-offset: 2px; }
+.menu-color__swatch--default { background: #292a2f; }
+.menu-color__swatch--custom { background: conic-gradient(#ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b6b); }
+.menu-color__swatch--custom input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; border: 0; padding: 0; }
+.menu--list .menu-item { border-radius: 0.6rem; }
+.menu--list .menu-item:hover { background: #45474f; color: #fff; }
+.menu--list .menu-item--danger:hover { color: #ff8a7a; }

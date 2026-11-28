@@ -7,6 +7,7 @@ import {
   updateDoc,
   where,
   writeBatch,
+  deleteField,
 } from "firebase/firestore";
 import { useDroppable } from "@dnd-kit/core";
 import { sortOpenTasks } from "../../utils/dueDate";
@@ -20,7 +21,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import Popup from "reactjs-popup";
 import { MdDelete } from "react-icons/md";
 import { doc } from "firebase/firestore";
-import { MdBrush } from "react-icons/md";
+import { MdBrush, MdCheck, MdColorize } from "react-icons/md";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const TaskList = (props) => {
@@ -122,7 +123,15 @@ const TaskList = (props) => {
   );
 };
 
+// Muted colours that keep white text readable on the dark theme.
+const LIST_COLORS = [
+  "#3b4252", "#1e3a5f", "#2b2f6b", "#3b2361", "#5c1a3a", "#6b1d1d",
+  "#6b2f12", "#5c3d0e", "#4a4a1f", "#1f4d2b", "#134e4a", "#164e63",
+];
+
 const MenuOptions = (props) => {
+  const current = props.taskList.color;
+
   // Deleting a list also deletes its tasks, so none are left behind.
   const DeleteTask = async (id) => {
     if (!window.confirm(`Delete "${props.taskList.tasklist_name}" and its tasks?`)) return;
@@ -134,29 +143,53 @@ const MenuOptions = (props) => {
   };
 
   const SetListColor = async (color) => {
-    const docRef = doc(db, "TaskList", props.taskList.id);
-    await updateDoc(docRef, {
-      color: color,
-    });
+    await updateDoc(doc(db, "TaskList", props.taskList.id), { color: color || deleteField() });
   };
 
+  const isCustom = !!current && !LIST_COLORS.includes(current.toLowerCase());
+
   return (
-    <div className="menu">
-      <div className="menu-item" onClick={() => DeleteTask(props.taskList.id)}>
+    <div className="menu menu--list">
+      <p className="menu-color__title"><MdBrush className="menu-icon" />List colour</p>
+      <div className="menu-color__grid">
+        <button
+          type="button"
+          className={`menu-color__swatch menu-color__swatch--default${!current ? " is-active" : ""}`}
+          title="Default"
+          aria-label="Default colour"
+          onClick={() => SetListColor(null)}
+        >
+          {!current && <MdCheck />}
+        </button>
+        {LIST_COLORS.map((c) => (
+          <button
+            key={c}
+            type="button"
+            className={`menu-color__swatch${current?.toLowerCase() === c ? " is-active" : ""}`}
+            style={{ background: c }}
+            aria-label={`Colour ${c}`}
+            onClick={() => SetListColor(c)}
+          >
+            {current?.toLowerCase() === c && <MdCheck />}
+          </button>
+        ))}
+        <label
+          className={`menu-color__swatch menu-color__swatch--custom${isCustom ? " is-active" : ""}`}
+          style={isCustom ? { background: current } : undefined}
+          title="Custom colour"
+        >
+          {isCustom ? <MdCheck /> : <MdColorize />}
+          <input
+            type="color"
+            aria-label="Custom colour"
+            value={current || "#292a2f"}
+            onChange={(e) => SetListColor(e.target.value)}
+          />
+        </label>
+      </div>
+      <div className="menu-item menu-item--danger" onClick={() => DeleteTask(props.taskList.id)}>
         <MdDelete className="menu-icon" />
         Delete list
-      </div>
-      <div
-        className="menu-item"
-        // onClick={() => DeleteTask(id)}
-      >
-        <MdBrush className="menu-icon" />
-        Set Color - &nbsp;
-        <input
-          type="color"
-          value={props.taskList.color}
-          onChange={(e) => SetListColor(e.target.value)}
-        />
       </div>
     </div>
   );
