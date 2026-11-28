@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -18,7 +18,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Offline data: keep a local copy so boards work without a connection; changes sync later.
+const db = initializeFirestore(app, {
+    localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
+});
 
 const provider = new GoogleAuthProvider();
 
