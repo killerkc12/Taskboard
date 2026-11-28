@@ -16,3 +16,6 @@ root.render(
         <App />
     </React.StrictMode>
 );
+
+// The app started, so its files loaded: allow the offline-copy recovery to run again later.
+setTimeout(() => { try { sessionStorage.removeItem('pwa_recover'); } catch { /* ignore */ } }, 5000);

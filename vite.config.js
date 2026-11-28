@@ -29,10 +29,18 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
         globIgnores: ['og.png'],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
-        navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api\//, /\/[^/?]+\.[a-z0-9]+$/i],
+            // '/' must not be answered from the precache, or the NetworkFirst page rule never runs.
+            directoryIndex: '__no_directory_index__',
+            navigateFallback: null, // vite-plugin-pwa adds one by default; pages use the NetworkFirst rule below
         cleanupOutdatedCaches: true,
         runtimeCaching: [
+          {
+            // Pages: always try the network first so an online visit gets the newest
+            // version (whose files exist on the server); the saved copy is for offline.
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: { cacheName: 'pages', networkTimeoutSeconds: 4, expiration: { maxEntries: 5 }, precacheFallback: { fallbackURL: 'index.html' } },
+          },
           {
             urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
             handler: 'CacheFirst',
