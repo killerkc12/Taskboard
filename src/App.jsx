@@ -2,6 +2,7 @@ import './App.css';
 import { createContext, useEffect, useReducer, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
+import { identifyUser } from '@killerkc12/shared';
 import { initialState, reducer } from './reducers/userReducer';
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
@@ -19,6 +20,7 @@ function App() {
     useEffect(() => onAuthStateChanged(auth, (u) => {
         setFirebaseUser(u);
         setAuthReady(true);
+        if (u) identifyUser(u.uid);
         if (!u) {
             localStorage.removeItem('user');
             dispatch({ type: 'CLEAR' });
