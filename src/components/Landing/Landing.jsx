@@ -114,6 +114,7 @@ const Landing = () => (
                     <a key={label} href={href} target={href.includes('killerkc12.in') ? undefined : '_blank'} rel='noopener noreferrer'>{label}</a>
                 ))}
             </span>
+            <p className='landing__privacy'>Privacy-friendly analytics (PostHog) to count visits. No cookies, no ads.</p>
         </footer>
     </div>
 );
