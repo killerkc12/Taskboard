@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
-    "@killerkc12/shared": "https://codeload.github.com/killerkc12/killerkc12-shared/tar.gz/ca288675882e613e5a091859e5d7154a5bb4da50",
+    "@killerkc12/shared": "https://codeload.github.com/killerkc12/killerkc12-shared/tar.gz/fee4968d382b82fdabd6afb224995094e7046874",
     "firebase": "12.19.0",
     "posthog-js": "^1.449.2",
     "react": "^18.2.0",
